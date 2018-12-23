@@ -1,0 +1,28 @@
+{
+  "name": "chordgen",
+  "version": "0.0.1",
+  "description": "Generates chord image with adjustable number of strings and frets.",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hirokazutei/ChordGen.git"
+  },
+  "keywords": [
+    "chord",
+    "png",
+    "generator"
+  ],
+  "author": "Hirokazu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hirokazutei/ChordGen/issues"
+  },
+  "homepage": "https://github.com/hirokazutei/ChordGen#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "flow-bin": "^0.89.0"
+  }
+}
