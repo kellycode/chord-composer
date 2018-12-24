@@ -26,10 +26,12 @@ export const CAP_ADJUST = {
 
 // Instruments
 export const GUITAR = {
+  text: "guitar",
   strings: 6,
   tuning: ["E", "A", "D", "G", "B", "e"]
 };
 export const UKULELE = {
+  text: "ukulele",
   strings: 4,
   tuning: ["G", "C", "E", "A"]
 };

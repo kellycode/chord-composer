@@ -1,134 +1,22 @@
 /* @flow */
-// import * as C from "./constants";
-// import * as type from "./types";
-
-// ====== TEMPORARY =====
-const C = {
-  WIDTH: 480,
-  HOR_CENTER: 480 / 2,
-  HEIGHT: 660,
-  NECK_WIDTH: 360,
-  NECK_HEIGHT: 480,
-  TOP_SPACE: 140,
-  BOT_SPACE: 40,
-  NECK_WIDTH_MARGIN: (480 - 360) / 2,
-
-  TEXT_HEIGHT: 85,
-  TEXT_SIZE: {
-    STANDARD: 100,
-    SUBTEXT: 50
-  },
-  LINE_WEIGHT: {
-    STANDARD: 4,
-    THICK: 10
-  },
-  CAP_ADJUST: {
-    STANDARD: 0,
-    THICK: 3
-  },
-
-  // Instruments
-  GUITAR: {
-    strings: 6,
-    tuning: ["E", "A", "D", "G", "B", "e"]
-  },
-  UKULELE: {
-    strings: 4,
-    tuning: ["G", "C", "E", "A"]
-  },
-
-  INSTRUMENTS: [
-    {
-      strings: 6,
-      tuning: ["E", "A", "D", "G", "B", "e"]
-    },
-    {
-      strings: 4,
-      tuning: ["G", "C", "E", "A"]
-    }
-  ],
-
-  // COLOR
-  COLOR: {
-    WHITE: (255, 255, 255),
-    BLACK: (0, 0, 0)
-  }
-};
-/*type Settings = {
-  frets: number,
-  startingFret: number
-};
-
-type Instrument = {
-  strings: number,
-  tuning: Array<string>
-};
-
-type ChordName = {
-  key: string,
-  flat?: boolean,
-  sharp?: boolean,
-  aux?: string
-};
-
-// x is closed, o is open, 0 is unnumbered press, 1 ~ 4 is numbered presses
-type ChordNote = {
-  string: number,
-  fret: number,
-  barre?: number,
-  finger?: string
-};*/
-
-// ========= TEMPORARY ========
-
-let currentInstrumentIndex = 0;
-
-const settings = {
-  frets: 5,
-  startingFret: 1
-};
-
-function setup() {
-  createCanvas(C.WIDTH, C.HEIGHT);
-}
-
-function draw() {
-  // Draw Settings
-  background(C.COLOR.WHITE);
-  strokeCap(PROJECT);
-  ellipseMode(RADIUS);
-  rectMode(CORNERS);
-
-  // Functions
-  renderNeck(settings, C.INSTRUMENTS[currentInstrumentIndex]);
-  const chordNames = [
-    { key: "A", sharp: true, aux: "maj7" },
-    { key: "B", flat: true }
-  ];
-  renderChordName(chordNames);
-  const chordNotes = [
-    { string: 0, fret: 1, finger: "1", barre: 5 },
-    { string: 2, fret: 2, finger: "2" },
-    { string: 3, fret: 0 }
-  ];
-  renderChordNotes(chordNotes, C.INSTRUMENTS[currentInstrumentIndex], settings);
-}
+import * as C from "../../../constants";
+import { ChordName, ChordNote, Instrument, Settings } from "./types";
 
 /**
  * Render the Neck Portion of Chord
+ * @param {Object} s - sketch
  * @param {Object} settings - render settings
  * @param {Object} instrument - an instrument object
  */
-//const renderNeck = (settings: Settings, instrument: Instrument) => {
-const renderNeck = (settings, instrument) => {
-  standerdizeRenderSetting();
+export const renderNeck = (s, settings: Settings, instrument: Instrument) => {
+  standerdizeRenderSetting(s);
   const { frets, startingFret } = settings;
   const { strings } = instrument;
 
   // Strings
   const stringSpacing = C.NECK_WIDTH / (strings - 1);
   for (let string = 0; string < strings; string++) {
-    line(
+    s.line(
       C.NECK_WIDTH_MARGIN + stringSpacing * string,
       C.TOP_SPACE,
       C.NECK_WIDTH_MARGIN + stringSpacing * string,
@@ -145,8 +33,8 @@ const renderNeck = (settings, instrument) => {
       weight = C.LINE_WEIGHT.THICK;
       capAdjust = C.CAP_ADJUST.THICK;
     }
-    strokeWeight(weight);
-    line(
+    s.strokeWeight(weight);
+    s.line(
       C.NECK_WIDTH_MARGIN + capAdjust,
       C.TOP_SPACE + fretSpacing * fret,
       C.WIDTH - C.NECK_WIDTH_MARGIN - capAdjust,
@@ -157,22 +45,25 @@ const renderNeck = (settings, instrument) => {
 
 /**
  * Render Chord Name
+ * @param {Object} s - sketch
  * @param {list} chordNames - list of ChordNames
  */
-//const renderChordName = (chordNames: Array<ChordName>) => {
-const renderChordName = chordNames => {
-  standerdizeRenderSetting();
-  let spacing = findTextStartingX(chordNames);
+export const renderChordName = (s, chordNames: Array<ChordName>) => {
+  standerdizeRenderSetting(s);
+  let spacing = findTextStartingX(s, chordNames);
+  if (!chordNames) {
+    return;
+  }
   for (const [index, chordName] of chordNames.entries()) {
     const { key, sharp, flat, aux } = chordName;
     // Main Chord
-    textSize(C.TEXT_SIZE.STANDARD);
-    text(`${key}`, spacing, C.TEXT_HEIGHT);
-    spacing += textWidth(key);
+    s.textSize(C.TEXT_SIZE.STANDARD);
+    s.text(`${key}`, spacing, C.TEXT_HEIGHT);
+    spacing += s.textWidth(key);
 
     // Sharp Flat
-    textSize(C.TEXT_SIZE.SUBTEXT);
-    text(
+    s.textSize(C.TEXT_SIZE.SUBTEXT);
+    s.text(
       `${sharp ? "♯" : ""}${flat ? "♭" : ""}`,
       spacing - 20,
       C.TEXT_HEIGHT - 40
@@ -180,38 +71,41 @@ const renderChordName = chordNames => {
 
     // Aux Text
     if (aux) {
-      text(`${aux}`, spacing, C.TEXT_HEIGHT);
-      spacing += textWidth(aux);
+      s.text(`${aux}`, spacing, C.TEXT_HEIGHT);
+      spacing += s.textWidth(aux);
     }
 
     // Add Dash
     if (chordNames.length !== 0 && index + 1 < chordNames.length) {
-      textSize(C.TEXT_SIZE.STANDARD);
-      text(`/`, spacing, C.TEXT_HEIGHT);
-      spacing += textWidth("/");
+      s.textSize(C.TEXT_SIZE.STANDARD);
+      s.text(`/`, spacing + 10, C.TEXT_HEIGHT);
+      spacing += s.textWidth("/") + 10;
     }
   }
 };
 
 /**
  * Find The Starting X Position
+ * @param {Object} s - sketch
  * @param {list} chordNames - list of ChordNames
  */
-// const findTextStartingX = chordNames: Array<ChordName> => {
-const findTextStartingX = chordNames => {
+export const findTextStartingX = (s, chordNames: Array<ChordName>) => {
   let x = 0;
+  if (!chordNames) {
+    return;
+  }
   for (let [index, chordName] of chordNames.entries()) {
-    const { key, sharp, flat, aux } = chordName;
+    const { key, aux } = chordName;
     // Main Chord
-    textSize(C.TEXT_SIZE.STANDARD);
-    x += textWidth(key);
+    s.textSize(C.TEXT_SIZE.STANDARD);
+    x += s.textWidth(key);
     if (aux) {
-      textSize(C.TEXT_SIZE.SUBTEXT);
-      x += textWidth(aux);
+      s.textSize(C.TEXT_SIZE.SUBTEXT);
+      x += s.textWidth(aux);
     }
     if (index) {
-      textSize(C.TEXT_SIZE.STANDARD);
-      x += textWidth("/");
+      s.textSize(C.TEXT_SIZE.STANDARD);
+      x += s.textWidth("/");
     }
   }
   const startingX = (C.WIDTH - x) / 2;
@@ -220,22 +114,29 @@ const findTextStartingX = chordNames => {
 
 /**
  * Render Chord Notes
- * @param list - of Chord Notes
+ * @param {Object} s - sketch
+ * @param {list} chordNotes - of Chord Notes
+ * @param {Object} instrument - the instrument
+ * @param {Object} settings - the setting
  */
-//const renderChordNotes = ( chordNotes: Array<ChordNote>, instrument: Instrument, settings: Settings) => {
-const renderChordNotes = (chordNotes, instrument, settings) => {
+export const renderChordNotes = (
+  s,
+  chordNotes: Array<ChordNote>,
+  instrument: Instrument,
+  settings: Settings
+) => {
   const { strings } = instrument;
   const { frets } = settings;
   const openChords = new Array(instrument.strings).fill(false);
   const stringSpacing = C.NECK_WIDTH / (strings - 1);
   const fretSpacing = C.NECK_HEIGHT / frets;
   // Render Notes && Finger Positions
-  fill(C.COLOR.BLACK);
+  s.fill(C.COLOR.BLACK);
   for (let chordNote of chordNotes) {
     const { string: noteString, fret: noteFret, finger } = chordNote;
     // Render Notes
     if (noteFret) {
-      ellipse(
+      s.ellipse(
         C.NECK_WIDTH_MARGIN + stringSpacing * noteString,
         C.TOP_SPACE + fretSpacing * (noteFret - 0.5),
         20
@@ -253,17 +154,17 @@ const renderChordNotes = (chordNotes, instrument, settings) => {
     if (barre) {
       const maxBarre = barre < strings ? barre : strings - 1;
       for (let note of [noteString, maxBarre]) {
-        ellipse(
+        s.ellipse(
           C.NECK_WIDTH_MARGIN + stringSpacing * note,
           C.TOP_SPACE + fretSpacing * (noteFret - 0.5),
           20
         ); // turn into const kaz
       }
-      rect(
+      s.rect(
         C.NECK_WIDTH_MARGIN + stringSpacing * noteString,
-        C.TOP_SPACE + fretSpacing * (noteFret - 1) + 28,
+        C.TOP_SPACE + fretSpacing * (noteFret - 1) + 20,
         C.NECK_WIDTH_MARGIN + stringSpacing * maxBarre,
-        C.TOP_SPACE + fretSpacing * noteFret - 28
+        C.TOP_SPACE + fretSpacing * noteFret - 20
       ); // turn into const kaz
       for (let i = noteString; i <= maxBarre; i++) {
         openChords[i] = null;
@@ -271,6 +172,7 @@ const renderChordNotes = (chordNotes, instrument, settings) => {
     }
   }
 
+  // Render Finger
   for (let chordNote of chordNotes) {
     const { barre, string: noteString, finger, fret: noteFret } = chordNote;
     const maxBarre = barre <= strings ? barre : strings - 1;
@@ -281,27 +183,30 @@ const renderChordNotes = (chordNotes, instrument, settings) => {
       (barre
         ? (stringSpacing * (noteString + maxBarre)) / 2
         : stringSpacing * noteString);
-    const y = C.TOP_SPACE + fretSpacing * noteFret - 36;
-    fill(C.COLOR.WHITE);
+    const y = C.TOP_SPACE + fretSpacing * noteFret - 28;
+    s.fill(C.COLOR.WHITE);
     if (finger) {
-      textSize(36);
-      text(finger, x, y);
+      s.textSize(36);
+      s.text(finger, x, y);
     }
   }
 
   // Render Open/Close Note
+  if (!openChords) {
+    return;
+  }
   for (let [index, openChord] of openChords.entries()) {
     if (openChord) {
-      fill(255, 255, 255);
-      ellipse(
+      s.fill(255, 255, 255);
+      s.ellipse(
         C.NECK_WIDTH_MARGIN + stringSpacing * index,
         C.TOP_SPACE - 25,
         15
       );
     } else if (openChord === false) {
-      fill(0, 0, 0);
-      textSize(40);
-      text(
+      s.fill(0, 0, 0);
+      s.textSize(40);
+      s.text(
         "X",
         C.NECK_WIDTH_MARGIN + stringSpacing * index - 13,
         C.TOP_SPACE - 10
@@ -310,7 +215,8 @@ const renderChordNotes = (chordNotes, instrument, settings) => {
   }
 };
 
-const changeInstrument = (currentInstrumentIndex, instruments) => {
+/*
+export const changeInstrument = (currentInstrumentIndex, instruments) => {
   if (currentInstrumentIndex + 1 < instruments.length) {
     return ++currentInstrumentIndex;
   }
@@ -322,10 +228,10 @@ function mousePressed() {
     currentInstrumentIndex,
     C.INSTRUMENTS
   );
-}
+}*/
 
-const standerdizeRenderSetting = () => {
-  textSize(C.TEXT_SIZE.STANDARD);
-  fill(C.COLOR.BLACK);
-  strokeWeight(C.LINE_WEIGHT.STANDARD);
+export const standerdizeRenderSetting = s => {
+  s.textSize(C.TEXT_SIZE.STANDARD);
+  s.fill(C.COLOR.BLACK);
+  s.strokeWeight(C.LINE_WEIGHT.STANDARD);
 };
