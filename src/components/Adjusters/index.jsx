@@ -4,7 +4,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ChangeKeyButtons from "./keys";
 
-class Adjusters extends Component {
+type Props = {};
+class Adjusters extends Component<Props> {
   render() {
     return (
       <div>

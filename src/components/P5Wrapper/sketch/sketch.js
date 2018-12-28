@@ -8,7 +8,11 @@ import type { ChordName, ChordNote, Instrument, Settings } from "./types";
  * @param {Object} settings - render settings
  * @param {Object} instrument - an instrument object
  */
-export const renderNeck = (s, settings: Settings, instrument: Instrument) => {
+export const renderNeck = (
+  s: any,
+  settings: Settings,
+  instrument: Instrument
+) => {
   standerdizeRenderSetting(s);
   const { frets, startingFret } = settings;
   const { strings } = instrument;
@@ -48,7 +52,7 @@ export const renderNeck = (s, settings: Settings, instrument: Instrument) => {
  * @param {Object} s - sketch
  * @param {list} chordNames - list of ChordNames
  */
-export const renderChordName = (s, chordNames: Array<ChordName>) => {
+export const renderChordName = (s: any, chordNames: Array<ChordName>) => {
   standerdizeRenderSetting(s);
   let spacing = findTextStartingX(s, chordNames);
   if (!chordNames) {
@@ -63,10 +67,11 @@ export const renderChordName = (s, chordNames: Array<ChordName>) => {
 
     // Sharp Flat
     s.textSize(C.TEXT_SIZE.SUBTEXT);
+    const sharp_flat_spacing = key === "A" ? 20 : 15;
     s.text(
       `${sharp ? "♯" : ""}${flat ? "♭" : ""}`,
-      spacing - 20,
-      C.TEXT_HEIGHT - 40
+      spacing - sharp_flat_spacing,
+      C.TEXT_HEIGHT - 37
     ); // Kaz turn these into const
 
     // Aux Text
@@ -78,8 +83,8 @@ export const renderChordName = (s, chordNames: Array<ChordName>) => {
     // Add Dash
     if (chordNames.length !== 0 && index + 1 < chordNames.length) {
       s.textSize(C.TEXT_SIZE.STANDARD);
-      s.text(`/`, spacing + 10, C.TEXT_HEIGHT);
-      spacing += s.textWidth("/") + 10;
+      s.text(`/`, spacing + 15, C.TEXT_HEIGHT);
+      spacing += s.textWidth("/") + 15;
     }
   }
 };
@@ -89,7 +94,7 @@ export const renderChordName = (s, chordNames: Array<ChordName>) => {
  * @param {Object} s - sketch
  * @param {list} chordNames - list of ChordNames
  */
-export const findTextStartingX = (s, chordNames: Array<ChordName>) => {
+export const findTextStartingX = (s: any, chordNames: Array<ChordName>) => {
   let x = 0;
   if (!chordNames) {
     return;
@@ -120,7 +125,7 @@ export const findTextStartingX = (s, chordNames: Array<ChordName>) => {
  * @param {Object} settings - the setting
  */
 export const renderChordNotes = (
-  s,
+  s: any,
   chordNotes: Array<ChordNote>,
   instrument: Instrument,
   settings: Settings
@@ -133,7 +138,7 @@ export const renderChordNotes = (
   // Render Notes && Finger Positions
   s.fill(C.COLOR.BLACK);
   for (let chordNote of chordNotes) {
-    const { string: noteString, fret: noteFret, finger } = chordNote;
+    const { string: noteString, fret: noteFret } = chordNote;
     // Render Notes
     if (noteFret) {
       s.ellipse(
@@ -151,7 +156,7 @@ export const renderChordNotes = (
   // Render Barre
   for (let chordNote of chordNotes) {
     const { barre, string: noteString, fret: noteFret } = chordNote;
-    if (barre) {
+    if (barre && noteFret !== null && noteFret !== undefined) {
       const maxBarre = barre < strings ? barre : strings - 1;
       for (let note of [noteString, maxBarre]) {
         s.ellipse(
@@ -172,18 +177,27 @@ export const renderChordNotes = (
     }
   }
 
+  // Additional Closed Note
+  for (let closedNote of chordNotes) {
+    if (closedNote.fret === null) {
+      openChords[closedNote.string] = false;
+    }
+  }
+
   // Render Finger
   for (let chordNote of chordNotes) {
     const { barre, string: noteString, finger, fret: noteFret } = chordNote;
-    const maxBarre = barre <= strings ? barre : strings - 1;
-    const fretSpacing = C.NECK_HEIGHT / frets;
+    const maxBarre = barre && barre <= strings ? barre : strings - 1;
+    const fretSpacing =
+      (C.NECK_HEIGHT / frets) *
+      (noteFret !== null && noteFret !== undefined ? noteFret - 28 : 0);
     const x =
       C.NECK_WIDTH_MARGIN -
       10 +
       (barre
         ? (stringSpacing * (noteString + maxBarre)) / 2
         : stringSpacing * noteString);
-    const y = C.TOP_SPACE + fretSpacing * noteFret - 28;
+    const y = C.TOP_SPACE + fretSpacing;
     s.fill(C.COLOR.WHITE);
     if (finger) {
       s.textSize(36);
@@ -230,7 +244,7 @@ function mousePressed() {
   );
 }*/
 
-export const standerdizeRenderSetting = s => {
+export const standerdizeRenderSetting = (s: any) => {
   s.textSize(C.TEXT_SIZE.STANDARD);
   s.fill(C.COLOR.BLACK);
   s.strokeWeight(C.LINE_WEIGHT.STANDARD);

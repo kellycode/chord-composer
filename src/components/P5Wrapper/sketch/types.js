@@ -20,7 +20,7 @@ export type ChordName = {
 // x is closed, o is open, 0 is unnumbered press, 1 ~ 4 is numbered presses
 export type ChordNote = {
   string: number,
-  fret: number,
+  fret: ?number,
   barre?: number,
   finger?: string
 };

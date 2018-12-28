@@ -1,6 +1,5 @@
 /* @flow */
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 import sketch from "./sketch";
@@ -19,7 +18,9 @@ type Props = {
   settings: Settings
 };
 
-class P5Wrapper extends Component {
+class P5Wrapper extends Component<Props> {
+  canvas: any;
+
   componentDidMount() {
     this.canvas = new window.p5(sketch, "canvas-container");
     this.canvas.props = this.props;
@@ -43,6 +44,5 @@ class P5Wrapper extends Component {
 }
 
 export default connect(state => {
-  console.log(state);
   return state;
 })(P5Wrapper);
