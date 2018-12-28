@@ -5,7 +5,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import sketch from "./sketch";
 
-import { ChordName, ChordNote, Instrument, Settings } from "./sketch/types";
+import type {
+  ChordName,
+  ChordNote,
+  Instrument,
+  Settings
+} from "./sketch/types";
 
 type Props = {
   chordName: ChordName,

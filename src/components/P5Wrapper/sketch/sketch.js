@@ -1,6 +1,6 @@
 /* @flow */
 import * as C from "../../../constants";
-import { ChordName, ChordNote, Instrument, Settings } from "./types";
+import type { ChordName, ChordNote, Instrument, Settings } from "./types";
 
 /**
  * Render the Neck Portion of Chord
