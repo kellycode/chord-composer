@@ -2,12 +2,13 @@ import actionTypes from "./actionTypes";
 import * as C from "../constants";
 import keys from "../constants/keys";
 
-const initialState = {
+export const initialState = {
   chordNotes: [],
   instrument: C.GUITAR,
   chordName: {},
   settings: {
-    frets: 6,
+    custom: false,
+    frets: 5,
     startingFret: 0
   },
   currentKey: "a",

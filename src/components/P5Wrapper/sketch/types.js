@@ -1,6 +1,7 @@
 /* @flow */
 
 export type Settings = {
+  custom?: boolean,
   frets: number,
   startingFret: number
 };
