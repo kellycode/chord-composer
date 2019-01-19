@@ -15,17 +15,13 @@ export default function(s) {
     s.rectMode(s.CORNERS);
 
     // Functions
-    const presetSettings = tools.findPresetSettings(
+    const settings = tools.applyPresetSettings(
       s.props.settings,
       s.props.chordNotes
     );
-    tools.renderNeck(s, presetSettings, s.props.instrument);
+    tools.renderNeck(s, settings);
     tools.renderChordName(s, s.props.chordNames);
-    tools.renderChordNotes(
-      s,
-      s.props.chordNotes,
-      s.props.instrument,
-      presetSettings
-    );
+    tools.renderChordNotes(s, s.props.chordNotes, settings);
+    tools.renderFret(s, settings);
   };
 }

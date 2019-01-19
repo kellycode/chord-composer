@@ -1,7 +1,7 @@
 /* @flow */
 
 // ADD TO CONSTANTS LATER
-export const WIDTH = 480;
+export const WIDTH = 520;
 export const HOR_CENTER = WIDTH / 2;
 export const HEIGHT = 660;
 export const NECK_WIDTH = 360;

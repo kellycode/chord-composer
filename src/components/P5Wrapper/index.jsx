@@ -4,17 +4,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import sketch from "./sketch";
 
-import type {
-  ChordName,
-  ChordNote,
-  Instrument,
-  Settings
-} from "./sketch/types";
+import type { ChordName, ChordNote, Settings } from "./sketch/types";
 
 type Props = {
   chordName: ChordName,
   chordNotes: Array<ChordNote>,
-  instrument: Instrument,
   settings: Settings
 };
 

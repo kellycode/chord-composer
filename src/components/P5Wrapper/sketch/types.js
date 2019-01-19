@@ -1,14 +1,15 @@
 /* @flow */
 
-export type Settings = {
-  custom?: boolean,
-  frets: number,
-  startingFret: number
-};
-
 export type Instrument = {
   strings: number,
   tuning: Array<string>
+};
+
+export type Settings = {
+  custom?: boolean,
+  frets: number,
+  instrument: Instrument,
+  startingFret: number
 };
 
 export type ChordName = {

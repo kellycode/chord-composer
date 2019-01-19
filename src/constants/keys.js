@@ -45,7 +45,7 @@ const KEYS = {
           { string: 2, fret: 2, finger: "2" },
           { string: 3, fret: 2, finger: "1" },
           { string: 4, fret: 2, finger: "3" },
-          { string: 5, fret: 0, finger: "0" }
+          { string: 5, fret: 0 }
         ],
         ukulele: []
       }

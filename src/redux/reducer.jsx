@@ -4,12 +4,12 @@ import keys from "../constants/keys";
 
 export const initialState = {
   chordNotes: [],
-  instrument: C.GUITAR,
   chordName: {},
   settings: {
     custom: false,
-    frets: 5,
-    startingFret: 0
+    frets: 4,
+    instrument: C.GUITAR,
+    startingFret: 1
   },
   currentKey: "a",
   currentChord: "maj"
