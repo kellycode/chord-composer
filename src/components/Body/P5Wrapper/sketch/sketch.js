@@ -1,5 +1,5 @@
 /* @flow */
-import * as C from "../../../constants";
+import * as C from "../../../../constants";
 import type { ChordName, ChordNote, Instrument, Settings } from "./types";
 
 /**
@@ -11,18 +11,6 @@ export const renderNeck = (s: any, settings: Settings) => {
   standerdizeRenderSetting(s);
   const { frets, startingFret, instrument } = settings;
   const { strings } = instrument;
-
-  // Strings
-  const stringSpacing = C.NECK_WIDTH / (strings - 1);
-  for (let string = 0; string < strings; string++) {
-    s.line(
-      C.NECK_WIDTH_MARGIN + stringSpacing * string,
-      C.TOP_SPACE,
-      C.NECK_WIDTH_MARGIN + stringSpacing * string,
-      C.HEIGHT - C.BOT_SPACE
-    );
-  }
-
   // Frets
   let fretSpacing = C.NECK_HEIGHT / frets;
   for (let fret = 0; fret <= frets; fret++) {
@@ -38,6 +26,17 @@ export const renderNeck = (s: any, settings: Settings) => {
       C.TOP_SPACE + fretSpacing * fret,
       C.WIDTH - C.NECK_WIDTH_MARGIN - capAdjust,
       C.TOP_SPACE + fretSpacing * fret
+    );
+  }
+
+  // Strings
+  const stringSpacing = C.NECK_WIDTH / (strings - 1);
+  for (let string = 0; string < strings; string++) {
+    s.line(
+      C.NECK_WIDTH_MARGIN + stringSpacing * string,
+      C.TOP_SPACE,
+      C.NECK_WIDTH_MARGIN + stringSpacing * string,
+      C.TOP_SPACE + fretSpacing * frets
     );
   }
 };

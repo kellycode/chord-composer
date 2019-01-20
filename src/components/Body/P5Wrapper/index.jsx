@@ -29,11 +29,7 @@ class P5Wrapper extends Component<Props> {
     this.canvas.remove();
   }
   render() {
-    return (
-      <>
-        <div id="canvas-container" />
-      </>
-    );
+    return <div id="canvas-container" />;
   }
 }
 

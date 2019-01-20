@@ -1,15 +1,24 @@
 import React, { Component } from "react";
 
-import P5Wrapper from "./components/P5Wrapper";
-import Adjusters from "./components/Adjusters";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
+
+const style = {
+  global: {
+    height: "100%",
+    width: "100%"
+  }
+};
 
 class App extends Component {
   render() {
     return (
-      <>
-        <P5Wrapper />
-        <Adjusters />
-      </>
+      <div style={style.global}>
+        <Header />
+        <Body />
+        <Footer />
+      </div>
     );
   }
 }

@@ -9,7 +9,7 @@ import App from "./App";
 const store = createStore(reducer);
 
 const TheApp = () => (
-  <Provider store={store} className="Providoer">
+  <Provider store={store}>
     <App />
   </Provider>
 );

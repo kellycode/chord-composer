@@ -2,15 +2,15 @@
 
 // ADD TO CONSTANTS LATER
 export const WIDTH = 520;
-export const HOR_CENTER = WIDTH / 2;
-export const HEIGHT = 660;
+export const HOR_CENTE = WIDTH / 2;
+export const HEIGHT = 680;
 export const NECK_WIDTH = 360;
 export const NECK_HEIGHT = 480;
-export const TOP_SPACE = 140;
+export const TOP_SPACE = 150;
 export const BOT_SPACE = 40;
 export const NECK_WIDTH_MARGIN = (WIDTH - NECK_WIDTH) / 2;
 
-export const TEXT_HEIGHT = 85;
+export const TEXT_HEIGHT = 105;
 export const TEXT_SIZE = {
   STANDARD: 100,
   SUBTEXT: 50
