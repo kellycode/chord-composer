@@ -4,8 +4,8 @@ export const PALETTE = {
   greyB: "#3F3F3F",
   greyC: "#8F8F8F",
   greyD: "#AAAAAA",
-  white: "#EEEEEE",
+  white: "#FFFFFF",
   teal: "#00b8ff",
-  tealLignt: "#7fdbff",
+  tealLight: "#7fdbff",
   tealDark: "#006e99"
 };

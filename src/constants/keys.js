@@ -1,28 +1,35 @@
 /* @flow */
 
 export const INDEX_KEYS = [
-  "a",
-  "ab",
-  "b",
-  "c",
-  "cd",
-  "d",
-  "de",
-  "e",
-  "f",
-  "fg",
-  "g",
-  "ga"
+  { key: "a", display: "A" },
+  { key: "ab", display: "A♯/B♭" },
+  { key: "b", display: "B" },
+  { key: "c", display: "C" },
+  { key: "cd", display: "C♯/D♭" },
+  { key: "d", display: "D" },
+  { key: "de", display: "D♯/E♭" },
+  { key: "e", display: "E" },
+  { key: "f", display: "F" },
+  { key: "fg", display: "F♯/G♭" },
+  { key: "g", display: "G" },
+  { key: "ga", display: "G♯/A♭" }
 ];
+
 export const INDEX_CHORD = [
-  "maj",
-  "min",
-  "sev",
-  "m7",
-  "maj7",
-  "sus4",
-  "fiv",
-  "six"
+  { chord: "maj", display: "Major" },
+  { chord: "min", display: "Minor" },
+  { chord: "sev", display: "7th" },
+  { chord: "m7", display: "Min 7th" },
+  { chord: "maj7", display: "Maj 7th" },
+  { chord: "sus4", display: "Sus 4th" },
+  { chord: "fiv", display: "5th" },
+  { chord: "six", display: "6th" }
+];
+
+export const INDEX_MODES = [
+  { mode: "guitar", display: "GUITAR" },
+  { mode: "ukulele", display: "UKULELE" },
+  { mode: "custom", display: "CUSTOM" }
 ];
 
 // Note - Chord - Text, chordNames, ChordNotes - Guitar, Uku
@@ -47,7 +54,12 @@ const KEYS = {
           { string: 4, fret: 2, finger: "3" },
           { string: 5, fret: 0 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 2, finger: "2" },
+          { string: 1, fret: 1, finger: "1" },
+          { string: 2, fret: 0 },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     min: {
@@ -68,7 +80,7 @@ const KEYS = {
           { string: 4, fret: 1, finger: "1" },
           { string: 5, fret: 0 }
         ],
-        ukulele: []
+        ukulele: [{ string: 0, fret: 2, finger: "2" }]
       }
     },
     sev: {
@@ -89,7 +101,12 @@ const KEYS = {
           { string: 4, fret: 2, finger: "2" },
           { string: 5, fret: 0 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 0 },
+          { string: 1, fret: 1, finger: "1" },
+          { string: 2, fret: 0 },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     m7: {
@@ -110,7 +127,12 @@ const KEYS = {
           { string: 4, fret: 1, finger: "1" },
           { string: 5, fret: 0 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 0 },
+          { string: 1, fret: 0 },
+          { string: 2, fret: 0 },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     maj7: {
@@ -131,7 +153,12 @@ const KEYS = {
           { string: 4, fret: 2, finger: "3" },
           { string: 5, fret: 0 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 1, finger: "1" },
+          { string: 1, fret: 1, finger: "2" },
+          { string: 2, fret: 0 },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     sus4: {
@@ -152,7 +179,12 @@ const KEYS = {
           { string: 4, fret: 3, finger: "4" },
           { string: 5, fret: 0 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 2, finger: "2" },
+          { string: 1, fret: 2, finger: "3" },
+          { string: 2, fret: 0 },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     fiv: {
@@ -172,7 +204,12 @@ const KEYS = {
           { string: 4, fret: 0 },
           { string: 5, fret: 0 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 2, finger: "1" },
+          { string: 1, fret: 4, finger: "3" },
+          { string: 2, fret: 0 },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     six: {
@@ -190,7 +227,11 @@ const KEYS = {
           { string: 1, fret: 0 },
           { string: 2, fret: 2, finger: "1", barre: 5 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 2, finger: "1", barre: 3 },
+          { string: 1, fret: 4, finger: "3" },
+          { string: 3, fret: 4, finger: "4" }
+        ]
       }
     }
   },
@@ -218,7 +259,11 @@ const KEYS = {
           { string: 1, fret: 1, finger: "1" },
           { string: 2, fret: 3, finger: "3", barre: 4 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 3, finger: "3" },
+          { string: 1, fret: 2, finger: "2" },
+          { string: 2, fret: 1, finger: "1", barre: 3 }
+        ]
       }
     },
     min: {
@@ -244,7 +289,10 @@ const KEYS = {
           { string: 3, fret: 3, finger: "4" },
           { string: 4, fret: 2, finger: "2" }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 3, finger: "3" },
+          { string: 1, fret: 1, finger: "1", barre: 3 }
+        ]
       }
     },
     sev: {
@@ -269,7 +317,10 @@ const KEYS = {
           { string: 2, fret: 3, finger: "3" },
           { string: 4, fret: 3, finger: "4" }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 1, finger: "1", barre: 3 },
+          { string: 1, fret: 2, finger: "2" }
+        ]
       }
     },
     m7: {
@@ -294,7 +345,7 @@ const KEYS = {
           { string: 2, fret: 3, finger: "3" },
           { string: 4, fret: 2, finger: "2" }
         ],
-        ukulele: []
+        ukulele: [{ string: 0, fret: 1, finger: "1", barre: 3 }]
       }
     },
     maj7: {
@@ -320,7 +371,12 @@ const KEYS = {
           { string: 3, fret: 2, finger: "2" },
           { string: 4, fret: 3, finger: "4" }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 3, finger: "3" },
+          { string: 1, fret: 2, finger: "2" },
+          { string: 2, fret: 1, finger: "1" },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     sus4: {
@@ -345,7 +401,11 @@ const KEYS = {
           { string: 2, fret: 3, finger: "3", barre: 3 },
           { string: 4, fret: 4, finger: "4" }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 3, finger: "3" },
+          { string: 1, fret: 0 },
+          { string: 2, fret: 1, finger: "1", barre: 3 }
+        ]
       }
     },
     fiv: {
@@ -370,7 +430,11 @@ const KEYS = {
           { string: 2, fret: 3, finger: "3" },
           { string: 3, fret: 3, finger: "4" }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 3, finger: "3" },
+          { string: 1, fret: 0 },
+          { string: 2, fret: 0, finger: "1", barre: 3 }
+        ]
       }
     },
     six: {
@@ -394,7 +458,11 @@ const KEYS = {
           { string: 1, fret: 1, finger: "1" },
           { string: 2, fret: 3, finger: "3", barre: 5 }
         ],
-        ukulele: []
+        ukulele: [
+          { string: 0, fret: 0 },
+          { string: 1, fret: 2, finger: "2" },
+          { string: 2, fret: 0, finger: "1", barre: 3 }
+        ]
       }
     }
   },

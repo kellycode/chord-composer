@@ -6,7 +6,7 @@ import { PALETTE } from "../../constants/palette";
 
 const style = {
   body: {
-    background: PALETTE.white,
+    backgroundColor: PALETTE.white,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",

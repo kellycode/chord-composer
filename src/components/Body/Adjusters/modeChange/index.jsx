@@ -2,14 +2,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import type { Dispatch } from "redux";
-import { INDEX_KEYS } from "../../../../constants/keys";
+import { INDEX_MODES } from "../../../../constants/keys";
 import actionTypes from "../../../../redux/actionTypes";
 import { PALETTE } from "../../../../constants/palette";
 
 const style = {
   border: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: "space-evenly",
     borderColor: PALETTE.tealLight,
     borderStyle: "solid",
@@ -22,17 +22,11 @@ const style = {
     border: "none",
     color: PALETTE.white,
     flex: 1,
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: "bold",
+    height: 50,
     margin: 5,
-    minHeight: 50,
-    minWidth: 100,
     padding: "10px 15px 10px 15px"
-  },
-  row: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "row"
   },
   title: {
     color: PALETTE.tealLight
@@ -44,41 +38,30 @@ const style = {
 
 type Props = Dispatch;
 
-class KeyChangers extends Component<Props> {
-  changeKey = key => {
+class ModeChange extends Component<Props> {
+  changeMode = mode => {
     this.props.dispatch({
-      type: actionTypes.CHANGE_KEY,
-      key
+      type: actionTypes.CHANGE_MODE,
+      mode
     });
   };
 
   render() {
     return (
       <div style={style.view}>
-        <h2 style={style.title}>KEYS</h2>
+        <h2 style={style.title}>MODES</h2>
         <div style={style.border}>
-          <div style={style.row}>
-            {INDEX_KEYS.slice(0, 6).map(key => (
+          {INDEX_MODES.slice(0, 4).map(mode => {
+            return (
               <button
-                onClick={() => this.changeKey(key.key)}
-                key={key.key}
+                onClick={() => this.changeMode(mode.mode)}
+                key={mode.mode}
                 style={style.button}
               >
-                {key.display}
+                {mode.display}
               </button>
-            ))}
-          </div>
-          <div style={style.row}>
-            {INDEX_KEYS.slice(6, 12).map(key => (
-              <button
-                onClick={() => this.changeKey(key.key)}
-                key={key.key}
-                style={style.button}
-              >
-                {key.display}
-              </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -89,4 +72,4 @@ const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps)(KeyChangers);
+export default connect(mapStateToProps)(ModeChange);
