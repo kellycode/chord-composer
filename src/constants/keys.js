@@ -80,7 +80,12 @@ const KEYS = {
           { string: 4, fret: 1, finger: "1" },
           { string: 5, fret: 0 }
         ],
-        ukulele: [{ string: 0, fret: 2, finger: "2" }]
+        ukulele: [
+          { string: 0, fret: 2, finger: "2" },
+          { string: 1, fret: 0 },
+          { string: 2, fret: 0 },
+          { string: 3, fret: 0 }
+        ]
       }
     },
     sev: {

@@ -9,7 +9,7 @@ const style = {
     backgroundColor: PALETTE.white,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    flexWrap: "wrap",
     padding: 25
   }
 };

@@ -6,6 +6,12 @@ import sketch from "./sketch";
 
 import type { ChordName, ChordNote, Settings } from "./sketch/types";
 
+const styles = {
+  sketch: {
+    width: 500
+  }
+};
+
 type Props = {
   chordName: ChordName,
   chordNotes: Array<ChordNote>,
@@ -29,7 +35,7 @@ class P5Wrapper extends Component<Props> {
     this.canvas.remove();
   }
   render() {
-    return <div id="canvas-container" />;
+    return <div id="canvas-container" style={styles.sketch} />;
   }
 }
 
