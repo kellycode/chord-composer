@@ -1,7 +1,9 @@
 /* @flow */
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import P5Wrapper from "./P5Wrapper";
 import Adjusters from "./Adjusters";
+import Custom from "./Custom";
 import { PALETTE } from "../../constants/palette";
 
 const style = {
@@ -14,15 +16,24 @@ const style = {
   }
 };
 
-type Props = null;
+type Props = {
+  custom: boolean
+};
 
-export default class Body extends Component<Props> {
+class Body extends Component<Props> {
   render() {
+    const { custom } = this.props;
     return (
       <div style={style.body}>
         <P5Wrapper />
-        <Adjusters />
+        {custom ? <Custom /> : <Adjusters />}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return state;
+};
+
+export default connect(mapStateToProps)(Body);

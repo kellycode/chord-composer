@@ -6,8 +6,8 @@ import { GUITAR, UKULELE } from "../constants/index";
 export const initialState = {
   chordNotes: [],
   chordName: {},
+  custom: false,
   settings: {
-    custom: false,
     frets: 4,
     instrument: C.GUITAR,
     startingFret: 1
@@ -40,18 +40,17 @@ export const reducer = (state = initialState, action) => {
         currentChord: action.chord
       };
     case actionTypes.CHANGE_MODE:
-      let newMode;
       switch (action.mode) {
         case GUITAR.text: {
           state.settings.instrument = GUITAR;
-          console.log(state);
           return {
             ...state,
             chordNames: keys[state.currentKey][state.currentChord].chordNames,
             chordNotes:
               keys[state.currentKey][state.currentChord].chordNotes[
                 state.settings.instrument.text
-              ]
+              ],
+            custom: false
           };
         }
         case UKULELE.text: {
@@ -62,16 +61,17 @@ export const reducer = (state = initialState, action) => {
             chordNotes:
               keys[state.currentKey][state.currentChord].chordNotes[
                 state.settings.instrument.text
-              ]
+              ],
+            custom: false
           };
         }
         default: {
           break;
         }
       }
-      state.settings.custom = true;
       return {
-        ...state
+        ...state,
+        custom: true
       };
     default:
       return { ...state };

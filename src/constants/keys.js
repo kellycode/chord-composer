@@ -27,9 +27,9 @@ export const INDEX_CHORD = [
 ];
 
 export const INDEX_MODES = [
-  { mode: "guitar", display: "GUITAR" },
-  { mode: "ukulele", display: "UKULELE" },
-  { mode: "custom", display: "CUSTOM" }
+  { value: "guitar", display: "GUITAR" },
+  { value: "ukulele", display: "UKULELE" },
+  { value: "custom", display: "CUSTOM" }
 ];
 
 // Note - Chord - Text, chordNames, ChordNotes - Guitar, Uku

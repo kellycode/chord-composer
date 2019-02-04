@@ -2,9 +2,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import type { Dispatch } from "redux";
-import { INDEX_MODES } from "../../../../constants/keys";
-import actionTypes from "../../../../redux/actionTypes";
-import { PALETTE } from "../../../../constants/palette";
+import { INDEX_MODES } from "../../../constants/keys";
+import actionTypes from "../../../redux/actionTypes";
+import { PALETTE } from "../../../constants/palette";
 
 const style = {
   border: {
@@ -54,8 +54,8 @@ class ModeChange extends Component<Props> {
           {INDEX_MODES.slice(0, 4).map(mode => {
             return (
               <button
-                onClick={() => this.changeMode(mode.mode)}
-                key={mode.mode}
+                onClick={() => this.changeMode(mode.value)}
+                key={mode.value}
                 style={style.button}
               >
                 {mode.display}
