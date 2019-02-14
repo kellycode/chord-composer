@@ -73,6 +73,26 @@ export const reducer = (state = initialState, action) => {
         ...state,
         custom: true
       };
+    // Change Name
+    case actionTypes.CHANGE_NAME_MAIN: {
+      return {
+        ...state,
+        nameMain: action.value
+      };
+    }
+    case actionTypes.CHANGE_NAME_SUB: {
+      return {
+        ...state,
+        nameSub: action.value
+      };
+    }
+    case actionTypes.CHANGE_NAME_SUPER: {
+      return {
+        ...state,
+        nameSuper: action.value
+      };
+    }
+
     default:
       return { ...state };
   }

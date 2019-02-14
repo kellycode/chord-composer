@@ -2,6 +2,7 @@
 import React from "react";
 
 import ModeChange from "../ModeChange";
+import NameSelectors from "./NameSelectors";
 
 const style = {
   custom: {
@@ -16,6 +17,7 @@ const Custom = () => {
   return (
     <div style={style.custom}>
       <ModeChange />
+      <NameSelectors />
     </div>
   );
 };
