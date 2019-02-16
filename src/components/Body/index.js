@@ -11,8 +11,7 @@ const style = {
     backgroundColor: PALETTE.white,
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
-    padding: 25
+    flexWrap: "wrap"
   }
 };
 

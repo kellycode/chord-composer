@@ -5,6 +5,7 @@ import type { Dispatch } from "redux";
 import { INDEX_MODES } from "../../../constants/keys";
 import actionTypes from "../../../redux/actionTypes";
 import { PALETTE } from "../../../constants/palette";
+import { BUTTON_STYLE } from "../../../constants/styles";
 
 const style = {
   border: {
@@ -17,16 +18,12 @@ const style = {
     padding: 10
   },
   button: {
-    backgroundColor: PALETTE.teal,
-    borderRadius: 3,
-    border: "none",
-    color: PALETTE.white,
     flex: 1,
     fontSize: 20,
-    fontWeight: "bold",
-    height: 50,
     margin: 5,
-    padding: "10px 15px 10px 15px"
+    minHeight: 50,
+    minWidth: 120,
+    ...BUTTON_STYLE
   },
   title: {
     color: PALETTE.tealLight
