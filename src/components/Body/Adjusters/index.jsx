@@ -14,6 +14,9 @@ const style = {
   }
 };
 
+/**
+ * Adjusters
+ */
 const Adjusters = () => {
   return (
     <div style={style.adjusters}>

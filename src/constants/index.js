@@ -2,26 +2,59 @@
 
 // ADD TO CONSTANTS LATER
 export const WIDTH = 520;
-export const HOR_CENTE = WIDTH / 2;
 export const HEIGHT = 680;
 export const NECK_WIDTH = 360;
 export const NECK_HEIGHT = 480;
 export const TOP_SPACE = 150;
 export const BOT_SPACE = 40;
 export const NECK_WIDTH_MARGIN = (WIDTH - NECK_WIDTH) / 2;
-
 export const TEXT_HEIGHT = 105;
+
+// Text Sizes
 export const TEXT_SIZE = {
-  STANDARD: 100,
-  SUBTEXT: 50
+  closedNote: 40,
+  finger: 35,
+  standard: 100,
+  subtext: 45,
+  starting_fret: 30
 };
+
+// Line weights
 export const LINE_WEIGHT = {
-  STANDARD: 4,
-  THICK: 10
+  standard: 4,
+  thick: 10
 };
+
+// Spacing between objects
+export const SPACING = {
+  closedNoteH: 13,
+  closedNoteV: 10,
+  dash: 15,
+  finger: 10,
+  flat_sharp: 20,
+  flat_sharp_close: 15,
+  flat_sharp_height: 40,
+  openNote: 25,
+  startingFretTextH: 70,
+  startingFretTextV: 20
+};
+
+// Caps of Lines
 export const CAP_ADJUST = {
-  STANDARD: 0,
-  THICK: 3
+  standard: 0,
+  thick: 3
+};
+
+// Size of rendered objects
+export const SIZE = {
+  note: 20,
+  openNote: 15
+};
+
+// Color
+export const COLOR = {
+  white: (255, 255, 255),
+  black: (0, 0, 0)
 };
 
 // Instruments
@@ -37,9 +70,3 @@ export const UKULELE = {
 };
 
 export const INSTRUMENTS = [GUITAR, UKULELE];
-
-// COLOR
-export const COLOR = {
-  WHITE: (255, 255, 255),
-  BLACK: (0, 0, 0)
-};

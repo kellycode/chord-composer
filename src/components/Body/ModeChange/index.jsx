@@ -5,25 +5,18 @@ import type { Dispatch } from "redux";
 import { INDEX_MODES } from "../../../constants/keys";
 import actionTypes from "../../../redux/actionTypes";
 import { PALETTE } from "../../../constants/palette";
-import { BUTTON_STYLE } from "../../../constants/styles";
+import DEFAULT_STYLE from "../../../constants/styles";
 
 const style = {
   border: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    borderColor: PALETTE.tealLight,
-    borderStyle: "solid",
-    borderWidth: 3,
-    padding: 10
+    ...DEFAULT_STYLE.border,
+    flexDirection: "row"
   },
   button: {
-    flex: 1,
     fontSize: 20,
-    margin: 5,
     minHeight: 50,
     minWidth: 120,
-    ...BUTTON_STYLE
+    ...DEFAULT_STYLE.button
   },
   title: {
     color: PALETTE.tealLight

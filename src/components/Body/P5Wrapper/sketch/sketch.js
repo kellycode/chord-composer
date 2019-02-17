@@ -1,57 +1,22 @@
 /* @flow */
-import * as C from "../../../../constants";
-import type { ChordName, ChordNote, Instrument, Settings } from "./types";
-
-/**
- * Render the Neck Portion of Chord
- * @param {Object} s - sketch
- * @param {Object} settings - render settings
- */
-export const renderNeck = (s: any, settings: Settings) => {
-  standerdizeRenderSetting(s);
-  const { frets, startingFret, instrument } = settings;
-  const { strings } = instrument;
-  // Frets
-  let fretSpacing = C.NECK_HEIGHT / frets;
-  for (let fret = 0; fret <= frets; fret++) {
-    let weight = C.LINE_WEIGHT.STANDARD;
-    let capAdjust = C.CAP_ADJUST.STANDARD;
-    if (fret === 0 && startingFret === 1) {
-      weight = C.LINE_WEIGHT.THICK;
-      capAdjust = C.CAP_ADJUST.THICK;
-    }
-    s.strokeWeight(weight);
-    s.line(
-      C.NECK_WIDTH_MARGIN + capAdjust,
-      C.TOP_SPACE + fretSpacing * fret,
-      C.WIDTH - C.NECK_WIDTH_MARGIN - capAdjust,
-      C.TOP_SPACE + fretSpacing * fret
-    );
-  }
-
-  // Strings
-  const stringSpacing = C.NECK_WIDTH / (strings - 1);
-  for (let string = 0; string < strings; string++) {
-    s.line(
-      C.NECK_WIDTH_MARGIN + stringSpacing * string,
-      C.TOP_SPACE,
-      C.NECK_WIDTH_MARGIN + stringSpacing * string,
-      C.TOP_SPACE + fretSpacing * frets
-    );
-  }
-};
+import * as CONST from "../../../../constants";
+import type {
+  ChordName,
+  ChordNote,
+  Settings
+} from "../../../../constants/types";
 
 /***
- * Render the Neck Portion of Chord
- * @param {Object} settings - render settings
- * @param {Object} chordNotes - the notes being represented
+ * Apply Preset Settings for Non-Custom Renders
+ * @param {Object} settings - Render Settings
+ * @param {Object} chordNotes - The notes being rendered
  */
 export const applyPresetSettings = (
   settings: Settings,
   chordNotes: Array<ChordNote>
 ) => {
-  const { custom, frets, startingFret } = settings;
-  if (custom || !chordNotes.length) {
+  const { frets, startingFret } = settings;
+  if (!chordNotes.length) {
     return settings;
   }
   const noteFrets = chordNotes.map(chordNote => chordNote.fret);
@@ -76,53 +41,99 @@ export const applyPresetSettings = (
 };
 
 /**
- * Render Chord Name
- * @param {Object} s - sketch
- * @param {list} chordNames - list of ChordNames
+ * Render the Background Neck
+ * @param {Sketch} sketch - P5JS Sketch
+ * @param {Object} settings - Render settings
  */
-export const renderChordName = (s: any, chordNames: Array<ChordName>) => {
-  standerdizeRenderSetting(s);
-  let spacing = findTextStartingX(s, chordNames);
+export const renderNeck = (sketch: any, settings: Settings) => {
+  standerdizeRenderSetting(sketch);
+  const { frets, startingFret, instrument } = settings;
+  const { strings } = instrument;
+
+  // Render Frets
+  const fretSpacing = CONST.NECK_HEIGHT / frets;
+  for (let fret = 0; fret <= frets; fret++) {
+    const weight =
+      fret === 0 && startingFret === 1
+        ? CONST.LINE_WEIGHT.thick
+        : CONST.LINE_WEIGHT.standard;
+    const capAdjust =
+      fret === 0 && startingFret === 1
+        ? CONST.CAP_ADJUST.thick
+        : CONST.CAP_ADJUST.standard;
+    sketch.strokeWeight(weight);
+    sketch.line(
+      CONST.NECK_WIDTH_MARGIN + capAdjust,
+      CONST.TOP_SPACE + fretSpacing * fret,
+      CONST.WIDTH - CONST.NECK_WIDTH_MARGIN - capAdjust,
+      CONST.TOP_SPACE + fretSpacing * fret
+    );
+  }
+
+  // Render Strings
+  const stringSpacing = CONST.NECK_WIDTH / (strings - 1);
+  for (let string = 0; string < strings; string++) {
+    sketch.line(
+      CONST.NECK_WIDTH_MARGIN + stringSpacing * string,
+      CONST.TOP_SPACE,
+      CONST.NECK_WIDTH_MARGIN + stringSpacing * string,
+      CONST.TOP_SPACE + fretSpacing * frets
+    );
+  }
+};
+
+/**
+ * Render Chord Name
+ * @param {Sketch} sketch - P5JS Sketch
+ * @param {list} chordNames - List of Chord Names
+ */
+export const renderChordName = (sketch: any, chordNames: Array<ChordName>) => {
+  standerdizeRenderSetting(sketch);
+  let spacing = findTextStartingX(sketch, chordNames);
   if (!chordNames) {
     return;
   }
   for (const [index, chordName] of chordNames.entries()) {
     const { key, sharp, flat, aux } = chordName;
     // Main Chord
-    s.textSize(C.TEXT_SIZE.STANDARD);
-    s.text(`${key}`, spacing, C.TEXT_HEIGHT);
-    spacing += s.textWidth(key);
+    sketch.textSize(CONST.TEXT_SIZE.standard);
+    sketch.text(`${key}`, spacing, CONST.TEXT_HEIGHT);
+    spacing += sketch.textWidth(key);
 
     // Sharp Flat
-    s.textSize(C.TEXT_SIZE.SUBTEXT);
-    const sharp_flat_spacing = key === "A" ? 20 : 15;
-    s.text(
+    sketch.textSize(CONST.TEXT_SIZE.subtext);
+    const sharp_flat_spacing =
+      key === "A" ? CONST.SPACING.flat_sharp : CONST.SPACING.flat_sharp_close;
+    sketch.text(
       `${sharp ? "♯" : ""}${flat ? "♭" : ""}`,
       spacing - sharp_flat_spacing,
-      C.TEXT_HEIGHT - 37
-    ); // Kaz turn these into const
+      CONST.TEXT_HEIGHT - CONST.SPACING.flat_sharp_height
+    );
 
     // Aux Text
     if (aux) {
-      s.text(`${aux}`, spacing, C.TEXT_HEIGHT);
-      spacing += s.textWidth(aux);
+      sketch.text(`${aux}`, spacing, CONST.TEXT_HEIGHT);
+      spacing += sketch.textWidth(aux);
     }
 
     // Add Dash
     if (chordNames.length !== 0 && index + 1 < chordNames.length) {
-      s.textSize(C.TEXT_SIZE.STANDARD);
-      s.text(`/`, spacing + 15, C.TEXT_HEIGHT);
-      spacing += s.textWidth("/") + 15;
+      sketch.textSize(CONST.TEXT_SIZE.standard);
+      sketch.text(`/`, spacing + CONST.SPACING.dash, CONST.TEXT_HEIGHT);
+      spacing += sketch.textWidth("/") + CONST.SPACING.dash;
     }
   }
 };
 
 /**
  * Find The Starting X Position
- * @param {Object} s - sketch
- * @param {list} chordNames - list of ChordNames
+ * @param {Sketch} sketch - P5JS Sketch
+ * @param {list} chordNames - List of Chord Names
  */
-export const findTextStartingX = (s: any, chordNames: Array<ChordName>) => {
+export const findTextStartingX = (
+  sketch: any,
+  chordNames: Array<ChordName>
+) => {
   let x = 0;
   if (!chordNames) {
     return;
@@ -130,75 +141,86 @@ export const findTextStartingX = (s: any, chordNames: Array<ChordName>) => {
   for (let [index, chordName] of chordNames.entries()) {
     const { key, aux } = chordName;
     // Main Chord
-    s.textSize(C.TEXT_SIZE.STANDARD);
-    x += s.textWidth(key);
+    sketch.textSize(CONST.TEXT_SIZE.standard);
+    x += sketch.textWidth(key);
     if (aux) {
-      s.textSize(C.TEXT_SIZE.SUBTEXT);
-      x += s.textWidth(aux);
+      sketch.textSize(CONST.TEXT_SIZE.subtext);
+      x += sketch.textWidth(aux);
     }
     if (index) {
-      s.textSize(C.TEXT_SIZE.STANDARD);
-      x += s.textWidth("/");
+      sketch.textSize(CONST.TEXT_SIZE.standard);
+      x += sketch.textWidth("/");
     }
   }
-  const startingX = (C.WIDTH - x) / 2;
+  const startingX = (CONST.WIDTH - x) / 2;
   return startingX;
 };
 
 /**
  * Render Chord Notes
- * @param {Object} s - sketch
- * @param {list} chordNotes - of Chord Notes
- * @param {Object} settings - the setting
+ * @param {Sketch} sketch - P5JS ketch
+ * @param {array} chordNotes - List of Chord Notes
+ * @param {Object} settings - Render Settings
  */
 export const renderChordNotes = (
-  s: any,
+  sketch: any,
   chordNotes: Array<ChordNote>,
   settings: Settings
 ) => {
   const { frets, instrument, startingFret } = settings;
   const { strings } = instrument;
   const openChords = new Array(instrument.strings).fill(false);
-  const stringSpacing = C.NECK_WIDTH / (strings - 1);
-  const fretSpacing = C.NECK_HEIGHT / frets;
-  // Render Notes && Finger Positions
-  s.fill(C.COLOR.BLACK);
+  const stringSpacing = CONST.NECK_WIDTH / (strings - 1);
+  const fretSpacing = CONST.NECK_HEIGHT / frets;
+
+  // Render Notes
+  sketch.fill(CONST.COLOR.black);
   for (let chordNote of chordNotes) {
     const { string: noteString, fret: noteFret } = chordNote;
-    // Render Notes
     const normalizedFret = noteFret ? noteFret - (startingFret - 1) : 0;
-    if (normalizedFret) {
-      s.ellipse(
-        C.NECK_WIDTH_MARGIN + stringSpacing * noteString,
-        C.TOP_SPACE + fretSpacing * (normalizedFret - 0.5),
-        20
-      ); // turn into const kaz
+    if (isVisibleOnNeck(chordNote, startingFret, frets, instrument.strings)) {
+      if (normalizedFret) {
+        sketch.ellipse(
+          CONST.NECK_WIDTH_MARGIN + stringSpacing * noteString,
+          CONST.TOP_SPACE + fretSpacing * (normalizedFret - 0.5),
+          CONST.SIZE.note
+        );
+      }
     }
+    // Record Open/Close Chorse
     if (!normalizedFret) {
       openChords[noteString] = true;
     } else if (!openChords[noteString]) {
       openChords[noteString] = null;
     }
   }
+
   // Render Barre
   for (let chordNote of chordNotes) {
     const { barre, string: noteString, fret: noteFret } = chordNote;
     if (barre && noteFret !== null && noteFret !== undefined) {
       const normalizedFret = noteFret - (startingFret - 1);
       const maxBarre = barre < strings ? barre : strings - 1;
-      for (let note of [noteString, maxBarre]) {
-        s.ellipse(
-          C.NECK_WIDTH_MARGIN + stringSpacing * note,
-          C.TOP_SPACE + fretSpacing * (normalizedFret - 0.5),
-          20
-        ); // turn into const kaz
+      if (isVisibleOnNeck(chordNote, startingFret, frets, instrument.strings)) {
+        for (let note of [noteString, maxBarre]) {
+          sketch.ellipse(
+            CONST.NECK_WIDTH_MARGIN + stringSpacing * note,
+            CONST.TOP_SPACE + fretSpacing * (normalizedFret - 0.5),
+            20
+          );
+        }
+        sketch.rect(
+          CONST.NECK_WIDTH_MARGIN + stringSpacing * noteString,
+          CONST.TOP_SPACE +
+            fretSpacing * (normalizedFret - 0.5) +
+            CONST.SIZE.note,
+          CONST.NECK_WIDTH_MARGIN + stringSpacing * maxBarre,
+          CONST.TOP_SPACE +
+            fretSpacing * (normalizedFret - 0.5) -
+            CONST.SIZE.note
+        );
       }
-      s.rect(
-        C.NECK_WIDTH_MARGIN + stringSpacing * noteString,
-        C.TOP_SPACE + fretSpacing * (normalizedFret - 0.5) + 20,
-        C.NECK_WIDTH_MARGIN + stringSpacing * maxBarre,
-        C.TOP_SPACE + fretSpacing * (normalizedFret - 0.5) - 20
-      ); // turn into const kaz
+      // Record Open/Close Chorse
       for (let i = noteString; i <= maxBarre; i++) {
         openChords[i] = null;
       }
@@ -215,21 +237,24 @@ export const renderChordNotes = (
   // Render Finger
   for (let chordNote of chordNotes) {
     const { barre, string: noteString, finger, fret: noteFret } = chordNote;
-    const normalizedFret = noteFret ? noteFret - (startingFret - 1) : 0;
-    const maxBarre = barre ? (barre < strings ? barre : strings - 1) : 0;
-    const fretSpacing = C.NECK_HEIGHT / frets;
-    const x =
-      C.NECK_WIDTH_MARGIN -
-      10 +
-      (barre
-        ? (stringSpacing * (noteString + maxBarre)) / 2
-        : stringSpacing * noteString);
-    const y =
-      C.TOP_SPACE + fretSpacing * (normalizedFret ? normalizedFret - 0.385 : 0);
-    s.fill(C.COLOR.WHITE);
-    if (finger) {
-      s.textSize(36);
-      s.text(finger, x, y);
+    if (isVisibleOnNeck(chordNote, startingFret, frets, instrument.strings)) {
+      const normalizedFret = noteFret ? noteFret - (startingFret - 1) : 0;
+      const maxBarre = barre ? (barre < strings ? barre : strings - 1) : 0;
+      const fretSpacing = CONST.NECK_HEIGHT / frets;
+      const x =
+        CONST.NECK_WIDTH_MARGIN -
+        CONST.SPACING.finger +
+        (barre
+          ? (stringSpacing * (noteString + maxBarre)) / 2
+          : stringSpacing * noteString);
+      const y =
+        CONST.TOP_SPACE +
+        fretSpacing * (normalizedFret ? normalizedFret - 0.385 : 0);
+      sketch.fill(CONST.COLOR.white);
+      if (finger) {
+        sketch.textSize(CONST.TEXT_SIZE.finger);
+        sketch.text(finger, x, y);
+      }
     }
   }
 
@@ -239,37 +264,38 @@ export const renderChordNotes = (
   }
   for (let [index, openChord] of openChords.entries()) {
     if (openChord) {
-      s.fill(255, 255, 255);
-      s.ellipse(
-        C.NECK_WIDTH_MARGIN + stringSpacing * index,
-        C.TOP_SPACE - 25,
-        15
+      sketch.fill(CONST.COLOR.white);
+      sketch.ellipse(
+        CONST.NECK_WIDTH_MARGIN + stringSpacing * index,
+        CONST.TOP_SPACE - CONST.SPACING.openNote,
+        CONST.SIZE.openNote
       );
     } else if (openChord === false) {
-      s.fill(0, 0, 0);
-      s.textSize(40);
-      s.text(
+      sketch.fill(CONST.COLOR.black);
+      sketch.textSize(CONST.TEXT_SIZE.closedNote);
+      sketch.text(
         "X",
-        C.NECK_WIDTH_MARGIN + stringSpacing * index - 13,
-        C.TOP_SPACE - 10
+        CONST.NECK_WIDTH_MARGIN +
+          stringSpacing * index -
+          CONST.SPACING.closedNoteH,
+        CONST.TOP_SPACE - CONST.SPACING.closedNoteV
       );
     }
   }
 };
 
 /**
- * Render Chord Notes
- * @param {Object} s - sketch
+ * Render Starting Fret Text
+ * @param {Sketch} sketch - P5JS Sketch
  * @param {Object} settings - the setting
  */
-export const renderFret = (s: any, settings: Settings) => {
-  const { startingFret, frets } = settings;
+export const renderStartingFretText = (sketch: any, settings: Settings) => {
+  const { startingFret } = settings;
   if (startingFret === 1) {
     return;
   }
-  const fretSpacing = C.NECK_HEIGHT / frets;
-  s.fill(0, 0, 0);
-  s.textSize(30);
+  sketch.fill(CONST.COLOR.black);
+  sketch.textSize(CONST.TEXT_SIZE.starting_fret);
   let suffix = "th";
   switch (startingFret) {
     case 1:
@@ -282,28 +308,42 @@ export const renderFret = (s: any, settings: Settings) => {
       suffix = "rd";
       break;
     default:
-    // nothing
+    // NONE
   }
-  s.text(`${startingFret}${suffix}`, C.WIDTH - 70, C.TOP_SPACE + 20);
-};
-
-/*
-export const changeInstrument = (currentInstrumentIndex, instruments) => {
-  if (currentInstrumentIndex + 1 < instruments.length) {
-    return ++currentInstrumentIndex;
-  }
-  return 0;
-};
-
-function mousePressed() {
-  currentInstrumentIndex = changeInstrument(
-    currentInstrumentIndex,
-    C.INSTRUMENTS
+  sketch.text(
+    `${startingFret}${suffix}`,
+    CONST.WIDTH - CONST.SPACING.startingFretTextH,
+    CONST.TOP_SPACE + CONST.SPACING.startingFretTextV
   );
-}*/
+};
 
-export const standerdizeRenderSetting = (s: any) => {
-  s.textSize(C.TEXT_SIZE.STANDARD);
-  s.fill(C.COLOR.BLACK);
-  s.strokeWeight(C.LINE_WEIGHT.STANDARD);
+/**
+ * Checks If The Note Visible on Neck
+ * @param {Object} chordNote - Chord Note object
+ * @param {number} startingFret - Starting fret
+ * @param {number} frets - Number of rendered frets
+ * @param {number} strings - Number of rendered Strings
+ */
+export const isVisibleOnNeck = (
+  chordNote: ChordNote,
+  startingFret: number,
+  frets: number,
+  strings: number
+): boolean => {
+  const { string: noteString, fret: noteFret } = chordNote;
+  return !(
+    noteString >= strings ||
+    noteFret < startingFret ||
+    noteFret >= startingFret + frets
+  );
+};
+
+/**
+ * Standardizing Render Settings
+ * @param {Sketch} sketch - P5JS Sketch
+ */
+export const standerdizeRenderSetting = (sketch: any) => {
+  sketch.textSize(CONST.TEXT_SIZE.standard);
+  sketch.fill(CONST.COLOR.black);
+  sketch.strokeWeight(CONST.LINE_WEIGHT.standard);
 };

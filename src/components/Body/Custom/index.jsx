@@ -1,6 +1,5 @@
 /* @flow */
 import React from "react";
-
 import ModeChange from "../ModeChange";
 import NameSelectors from "./NameSelectors";
 import NeckSelectors from "./NeckSelectors";
@@ -17,6 +16,9 @@ const style = {
   }
 };
 
+/**
+ * Custom
+ */
 const Custom = () => {
   return (
     <div style={style.custom}>

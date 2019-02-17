@@ -4,22 +4,17 @@ import { connect } from "react-redux";
 import type { Dispatch } from "redux";
 import actionTypes from "../../../../redux/actionTypes";
 import { PALETTE } from "../../../../constants/palette";
-import { BUTTON_STYLE } from "../../../../constants/styles";
+import DEFAULT_STYLE from "../../../../constants/styles";
+import type { ChordNote, State } from "../../../../constants/types";
 
 const styles = {
   addButton: {
     flex: 1,
     height: 30,
-    ...BUTTON_STYLE
+    ...DEFAULT_STYLE.button
   },
   border: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    borderColor: PALETTE.tealLight,
-    borderStyle: "solid",
-    borderWidth: 3,
-    padding: 10
+    ...DEFAULT_STYLE.border
   },
   noteInput: {
     color: PALETTE.black,
@@ -31,7 +26,7 @@ const styles = {
     height: 25,
     margin: 10,
     width: 25,
-    ...BUTTON_STYLE
+    ...DEFAULT_STYLE.button
   },
   column: {
     alignItems: "center",
@@ -57,48 +52,91 @@ const styles = {
   }
 };
 
-type Props = Dispatch;
+type StateProps = {
+  customChordNotes: Array<ChordNote>
+};
+type Props = Dispatch & StateProps;
 
+/**
+ * Note Selectors
+ * @prop {Props} props - Properties
+ * */
 class NoteSelectors extends Component<Props> {
-  onChangeNoteFret = (index, event) => {
+  /**
+   * On Change Note Fret
+   * @param {number} index - Index of Note Changed
+   * @param {Event} event - Typing Event
+   */
+  onChangeNoteFret = (index: number, event: any) => {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_FRET,
       value: event.target.value
     });
   };
-  onChangeNoteString = (index, event) => {
+
+  /**
+   * On Change Note String
+   * @param {number} index - Index of String Changed
+   * @param {Event} event - Typing Event
+   */
+  onChangeNoteString = (index: number, event: any) => {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_STRING,
       value: event.target.value
     });
   };
-  onChangeNoteFinger = (index, event) => {
+
+  /**
+   * On Change Note Finger
+   * @param {number} index - Index of Finger Changed
+   * @param {Event} event - Typing Event
+   */
+  onChangeNoteFinger = (index: number, event: any) => {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_FINGER,
       value: event.target.value
     });
   };
-  onChangeNoteBarre = (index, event) => {
+
+  /**
+   * On Change Note Barre
+   * @param {number} index - Index of Barre Changed
+   * @param {Event} event - Typing Event
+   */
+  onChangeNoteBarre = (index: number, event: any) => {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_BARRE,
       value: event.target.value
     });
   };
-  onDeleteNote = (index, event) => {
+
+  /**
+   * On Delete Note
+   * @param {number} index - Index of Note Deleted
+   */
+  onDeleteNote = index => {
     this.props.dispatch({
       index,
       type: actionTypes.DELETE_NOTE
     });
   };
-  onAddNote = event => {
+
+  /**
+   * On Add Note
+   */
+  onAddNote = () => {
     this.props.dispatch({
       type: actionTypes.ADD_NOTE
     });
   };
+
+  /**
+   * Render
+   */
   render() {
     return (
       <div style={styles.view}>
@@ -165,8 +203,9 @@ class NoteSelectors extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return state;
+const mapStateToProps = (state: State): StateProps => {
+  const { customChordNotes } = state;
+  return { customChordNotes };
 };
 
 export default connect(mapStateToProps)(NoteSelectors);

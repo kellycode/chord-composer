@@ -4,26 +4,19 @@ import { connect } from "react-redux";
 import type { Dispatch } from "redux";
 import actionTypes from "../../../../redux/actionTypes";
 import { PALETTE } from "../../../../constants/palette";
-import { BUTTON_STYLE } from "../../../../constants/styles";
+import DEFAULT_STYLE from "../../../../constants/styles";
+import type { ChordName, ExtraName, State } from "../../../../constants/types";
 
 const styles = {
   addNameButton: {
-    flex: 1,
     fontSize: 10,
     height: 40,
     width: 215,
-    margin: 3,
-    marginLeft: 10,
-    ...BUTTON_STYLE
+    ...DEFAULT_STYLE.button,
+    marginLeft: 10
   },
   border: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    borderColor: PALETTE.tealLight,
-    borderStyle: "solid",
-    borderWidth: 3,
-    padding: 10
+    ...DEFAULT_STYLE.border
   },
   buttons: {
     display: "flex",
@@ -35,8 +28,8 @@ const styles = {
     fontSize: 10,
     height: 20,
     width: 20,
-    margin: 3,
-    ...BUTTON_STYLE
+    ...DEFAULT_STYLE.button,
+    margin: 3
   },
   mainNameInput: {
     color: PALETTE.black,
@@ -67,46 +60,74 @@ const styles = {
     margin: "10px 5px 10px 5px"
   },
   removeNameButton: {
-    flex: 1,
     fontSize: 10,
     height: 40,
     width: 30,
+    ...DEFAULT_STYLE.button,
     margin: 3,
-    marginLeft: 10,
-    ...BUTTON_STYLE
+    marginLeft: 10
   }
 };
 
-type Props = Dispatch;
+type StateProps = {
+  customChordNames: Array<ChordName>,
+  customExtraName: ExtraName
+};
+type Props = Dispatch & StateProps;
 
+/**
+ * Name Selectors
+ * @prop {Props} props - Properties
+ */
 class NameSelectors extends Component<Props> {
-  onChangeName = (index, event) => {
+  /**
+   * On Change Name
+   * @param {number} index - Index of Name Changed
+   * @param {Event} event - Typing Event
+   */
+  onChangeName = (index: number, event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_NAME,
       value: { text: event.target.value, index }
     });
   };
 
-  onChangeAuxText = (index, event) => {
+  /**
+   * On Change Aux TExt
+   * @param {number} index - Index of Aux Text Changed
+   * @param {Event} event - Typing Event
+   */
+  onChangeAuxText = (index: number, event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_AUX_TEXT,
       value: { text: event.target.value, index }
     });
   };
 
-  onChangeSuperSymbol = (shift, index) => {
+  /**
+   * On Change Super Symbol
+   * @param {string} shift - The Note Shift
+   * @param {number} index - Index of Super Symbol Changed
+   */
+  onChangeSuperSymbol = (shift: string, index: number) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_SUPER_SYMBOL,
       value: { shift, index }
     });
   };
 
+  /**
+   * On Chnage Extra Name
+   */
   onChangeExtraName = () => {
     this.props.dispatch({
       type: actionTypes.CHANGE_EXTRA_NAME
     });
   };
 
+  /**
+   * Render
+   */
   render() {
     return (
       <div style={styles.view}>
@@ -207,8 +228,13 @@ class NameSelectors extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return state;
+/**
+ * Map State to Props
+ * @param {State} state - State
+ */
+const mapStateToProps = (state: State): StateProps => {
+  const { customChordNames, customExtraName } = state;
+  return { customChordNames, customExtraName };
 };
 
 export default connect(mapStateToProps)(NameSelectors);

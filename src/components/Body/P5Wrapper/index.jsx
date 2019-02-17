@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import sketch from "./sketch";
 
-import type { ChordName, ChordNote, Settings } from "./sketch/types";
+import type { ChordName, ChordNote, Settings } from "../../../constants/types";
 
 const styles = {
   sketch: {

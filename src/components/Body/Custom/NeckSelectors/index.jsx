@@ -4,37 +4,29 @@ import { connect } from "react-redux";
 import type { Dispatch } from "redux";
 import actionTypes from "../../../../redux/actionTypes";
 import { PALETTE } from "../../../../constants/palette";
-import { BUTTON_STYLE } from "../../../../constants/styles";
+import DEFAULT_STYLE from "../../../../constants/styles";
+import type { Settings, State } from "../../../../constants/types";
 
 const styles = {
   increaseButton: {
-    flex: 1,
     fontSize: 10,
     height: 20,
     width: 30,
-    margin: 5,
     marginBottom: 0,
-    ...BUTTON_STYLE,
+    ...DEFAULT_STYLE.button,
     borderRadius: "5px 5px 0px 0px"
   },
   decreaseButton: {
-    flex: 1,
     fontSize: 10,
     height: 20,
     width: 30,
     margin: 5,
     marginTop: 0,
-    ...BUTTON_STYLE,
+    ...DEFAULT_STYLE.button,
     borderRadius: "0px 0px 5px 5px"
   },
   border: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    borderColor: PALETTE.tealLight,
-    borderStyle: "solid",
-    borderWidth: 3,
-    padding: 10
+    ...DEFAULT_STYLE.border
   },
   buttons: {
     display: "flex",
@@ -43,12 +35,11 @@ const styles = {
     alignItems: "centre"
   },
   keyButtons: {
-    flex: 1,
     fontSize: 10,
     height: 20,
     width: 20,
     margin: 3,
-    ...BUTTON_STYLE
+    ...DEFAULT_STYLE.button
   },
   mainNameInput: {
     color: PALETTE.black,
@@ -81,22 +72,46 @@ const styles = {
   }
 };
 
-type Props = Dispatch;
+type StateProps = {
+  customSettings: Settings
+};
+type Props = Dispatch & StateProps;
 
+/**
+ * Neck Selectors
+ * @prop {Props} props - Properties
+ */
 class NeckSelectors extends Component<Props> {
-  onChangeFret = (event, step) => {
+  /**
+   * On Change Fret
+   * @param {number} step - Step Up/Down Fret
+   * @param {Event} event - Typing Event
+   */
+  onChangeFret = (step: number, event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_FRET,
       value: step
     });
   };
-  onChangeString = (event, step) => {
+
+  /**
+   * On Change String
+   * @param {number} step - Step Add/Remove String
+   * @param {Event} event - Typing Event
+   */
+  onChangeString = (step: number, event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_STRING,
       value: step
     });
   };
-  onChangeStartingFret = (event, step) => {
+
+  /**
+   * On Change Fret
+   * @param {number} step - Step Up/Down Starting Fret
+   * @param {Event} event - Typing Event
+   */
+  onChangeStartingFret = (step: number, Event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_STARTING_FRET,
       value: step
@@ -115,13 +130,13 @@ class NeckSelectors extends Component<Props> {
               <div style={styles.buttons}>
                 <button
                   style={styles.increaseButton}
-                  onClick={() => this.onChangeFret(this, 1)}
+                  onClick={this.onChangeFret.bind(this, 1)}
                 >
                   ▲
                 </button>
                 <button
                   style={styles.decreaseButton}
-                  onClick={() => this.onChangeFret(this, -1)}
+                  onClick={this.onChangeFret.bind(this, -1)}
                 >
                   ▼
                 </button>
@@ -135,13 +150,13 @@ class NeckSelectors extends Component<Props> {
               <div style={styles.buttons}>
                 <button
                   style={styles.increaseButton}
-                  onClick={() => this.onChangeString(this, 1)}
+                  onClick={this.onChangeString.bind(this, 1)}
                 >
                   ▲
                 </button>
                 <button
                   style={styles.decreaseButton}
-                  onClick={() => this.onChangeString(this, -1)}
+                  onClick={this.onChangeString.bind(this, -1)}
                 >
                   ▼
                 </button>
@@ -155,13 +170,13 @@ class NeckSelectors extends Component<Props> {
               <div style={styles.buttons}>
                 <button
                   style={styles.increaseButton}
-                  onClick={() => this.onChangeStartingFret(this, 1)}
+                  onClick={this.onChangeStartingFret.bind(this, 1)}
                 >
                   ▲
                 </button>
                 <button
                   style={styles.decreaseButton}
-                  onClick={() => this.onChangeStartingFret(this, -1)}
+                  onClick={this.onChangeStartingFret.bind(this, -1)}
                 >
                   ▼
                 </button>
@@ -174,8 +189,9 @@ class NeckSelectors extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return state;
+const mapStateToProps = (state: State): StateProps => {
+  const { customSettings } = state;
+  return { customSettings };
 };
 
 export default connect(mapStateToProps)(NeckSelectors);

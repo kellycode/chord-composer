@@ -5,25 +5,17 @@ import type { Dispatch } from "redux";
 import { INDEX_KEYS } from "../../../../constants/keys";
 import actionTypes from "../../../../redux/actionTypes";
 import { PALETTE } from "../../../../constants/palette";
-import { BUTTON_STYLE } from "../../../../constants/styles";
+import DEFAULT_STYLE from "../../../../constants/styles";
 
 const style = {
   border: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    borderColor: PALETTE.tealLight,
-    borderStyle: "solid",
-    borderWidth: 3,
-    padding: 10
+    ...DEFAULT_STYLE.border
   },
   button: {
-    flex: 1,
     fontSize: 16,
-    margin: 5,
     minHeight: 40,
     minWidth: 80,
-    ...BUTTON_STYLE
+    ...DEFAULT_STYLE.button
   },
   row: {
     display: "flex",
@@ -39,14 +31,25 @@ const style = {
 
 type Props = Dispatch;
 
+/**
+ * Key Changer
+ * @prop {Dispatch} props  - Properties
+ */
 class KeyChangers extends Component<Props> {
-  changeKey = key => {
+  /**
+   * Change Key
+   * @prop {string} key - Key
+   */
+  changeKey = (key: string) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_KEY,
       key
     });
   };
 
+  /**
+   * Render
+   */
   render() {
     return (
       <div style={style.view}>
@@ -80,8 +83,4 @@ class KeyChangers extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return state;
-};
-
-export default connect(mapStateToProps)(KeyChangers);
+export default connect()(KeyChangers);
