@@ -5,10 +5,12 @@ import { PALETTE } from "../../constants/palette";
 const style = {
   footer: {
     background: PALETTE.tealDark,
-    bottom: 0,
+    //bottom: 0,
+    flex: 1,
+    flexShrink: 0,
     padding: 10,
-    position: "absolute",
-    width: "100%"
+    width: "100%",
+    marginTop: "auto"
   },
   message: {
     color: PALETTE.white,

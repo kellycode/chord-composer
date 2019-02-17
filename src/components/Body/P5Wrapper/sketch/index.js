@@ -32,7 +32,7 @@ export default function(s) {
     tools.renderChordName(s, custom ? customChordNames : chordNames);
     tools.renderChordNotes(
       s,
-      custom ? customChordNames : chordNotes,
+      custom ? customChordNotes : chordNotes,
       custom ? customSettings : presetSettings
     );
     tools.renderFret(s, custom ? customSettings : presetSettings);

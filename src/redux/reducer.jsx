@@ -106,7 +106,7 @@ export const reducer = (state = initialState, action) => {
       newChordName[action.value.index].key = action.value.text;
       return {
         ...state,
-        customChordname: newChordName
+        customChordNames: newChordName
       };
     }
     // CHANGE AUX TEXT
@@ -115,7 +115,7 @@ export const reducer = (state = initialState, action) => {
       newChordName[action.value.index].aux = action.value.text;
       return {
         ...state,
-        customChordname: newChordName
+        customChordNames: newChordName
       };
     }
     // CHANGE SUPER SYMBOL
@@ -139,7 +139,7 @@ export const reducer = (state = initialState, action) => {
       }
       return {
         ...state,
-        customChordname: newChordName
+        customChordNames: newChordName
       };
     }
     // TOGGLE EXTRA NAME
@@ -230,6 +230,98 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         customSettings: newSettings
+      };
+    }
+    // CHANGE_NOTE_STRING
+    case actionTypes.CHANGE_NOTE_STRING: {
+      const newChordNotes = [...state.customChordNotes];
+      if (isNaN(action.value)) {
+        const warning = "Please enter a valid number for the string.";
+        return { ...state, warning };
+      } else if (action.value < 0) {
+        const warning = "Negative string does not make sense...";
+        return { ...state, warning };
+      } else if (action.value >= state.customSettings.instrument.strings) {
+        const warning = `You've only got ${
+          state.customSettings.instrument.strings
+        } strings there`;
+        return { ...state, warning };
+      }
+      newChordNotes[action.index].string = Number(action.value);
+      return {
+        ...state,
+        customChordNotes: newChordNotes
+      };
+    }
+    // CHANGE_NOTE_FRET
+    case actionTypes.CHANGE_NOTE_FRET: {
+      const newChordNotes = [...state.customChordNotes];
+      if (isNaN(action.value)) {
+        const warning = "Please enter a valid number for the fret.";
+        return { ...state, warning };
+      } else if (action.value < 0) {
+        const warning = "Negative fret does not make sense...";
+        return { ...state, warning };
+      }
+      newChordNotes[action.index].fret = Number(action.value);
+      return {
+        ...state,
+        customChordNotes: newChordNotes
+      };
+    }
+
+    // CHANGE_NOTE_FINGER
+    case actionTypes.CHANGE_NOTE_FINGER: {
+      const newChordNotes = [...state.customChordNotes];
+      newChordNotes[action.index].finger = action.value;
+      return {
+        ...state,
+        customChordNotes: newChordNotes
+      };
+    }
+    // CHANGE_NOTE_BARRE
+    case actionTypes.CHANGE_NOTE_BARRE: {
+      const newChordNotes = [...state.customChordNotes];
+      if (isNaN(action.value)) {
+        const warning = "Please enter a valid number for the fret.";
+        return { ...state, warning };
+      } else if (action.value < 0) {
+        const warning = "Negative fret does not make sense...";
+        return { ...state, warning };
+      } else if (action.value >= state.customSettings.instrument.strings) {
+        const warning = `You've only got ${
+          state.customSettings.instrument.strings
+        } strings there`;
+        return { ...state, warning };
+      }
+      newChordNotes[action.index].barre = Number(action.value);
+      return {
+        ...state,
+        customChordNotes: newChordNotes
+      };
+    }
+
+    // ADD_NOTE
+    case actionTypes.ADD_NOTE: {
+      const newChordNotes = [...state.customChordNotes];
+      newChordNotes.push({
+        string: "",
+        fret: "",
+        finger: "",
+        barre: ""
+      });
+      return {
+        ...state,
+        customChordNotes: newChordNotes
+      };
+    }
+    // DELETE_NOTE
+    case actionTypes.DELETE_NOTE: {
+      const newChordNotes = [...state.customChordNotes];
+      newChordNotes.splice(action.index, 1);
+      return {
+        ...state,
+        customChordNotes: newChordNotes
       };
     }
 

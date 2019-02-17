@@ -6,8 +6,9 @@ import Footer from "./components/Footer";
 
 const style = {
   global: {
-    height: "100%",
-    width: "100%"
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100%"
   }
 };
 

@@ -5,6 +5,7 @@ import { PALETTE } from "../../constants/palette";
 const style = {
   header: {
     background: PALETTE.teal,
+    flex: 1,
     padding: 10
   },
   title: {

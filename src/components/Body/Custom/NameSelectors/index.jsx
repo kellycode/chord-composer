@@ -117,7 +117,7 @@ class NameSelectors extends Component<Props> {
               style={styles.mainNameInput}
               type="text"
               onChange={this.onChangeName.bind(this, 0)}
-              value={this.props.nameMain}
+              value={this.props.customChordNames[0].key}
             />
             <div>
               <div style={styles.buttons}>
@@ -144,7 +144,7 @@ class NameSelectors extends Component<Props> {
                 style={styles.subTextInput}
                 type="text"
                 onChange={this.onChangeAuxText.bind(this, 0)}
-                value={this.props.nameSub}
+                value={this.props.customChordNames[0].aux}
               />
             </div>
             {this.props.customExtraName ? <p style={styles.slash}>/</p> : null}
@@ -153,7 +153,7 @@ class NameSelectors extends Component<Props> {
                 style={styles.mainNameInput}
                 type="text"
                 onChange={this.onChangeName.bind(this, 1)}
-                value={this.props.nameMain}
+                value={this.props.customChordNames[1].key}
               />
             ) : null}
             <div>
@@ -184,7 +184,7 @@ class NameSelectors extends Component<Props> {
                   style={styles.subTextInput}
                   type="text"
                   onChange={this.onChangeAuxText.bind(this, 1)}
-                  value={this.props.nameSub}
+                  value={this.props.customChordNames[1].aux}
                 />
               ) : null}
             </div>
