@@ -28,14 +28,25 @@ const style = {
 
 type Props = Dispatch;
 
+/**
+ * Name Selectors
+ * @prop {Props} props - Properties
+ */
 class ModeChange extends Component<Props> {
-  changeMode = mode => {
+  /**
+   * Change Mode
+   * @param {string} mode - Mode
+   */
+  changeMode = (mode: string) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_MODE,
       mode
     });
   };
 
+  /**
+   * Render
+   */
   render() {
     return (
       <div style={style.view}>
@@ -58,8 +69,4 @@ class ModeChange extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return state;
-};
-
-export default connect(mapStateToProps)(ModeChange);
+export default connect()(ModeChange);

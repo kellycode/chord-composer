@@ -1,6 +1,5 @@
 /* @flow */
 
-// ADD TO CONSTANTS LATER
 export const WIDTH = 520;
 export const HEIGHT = 680;
 export const NECK_WIDTH = 360;
@@ -58,15 +57,15 @@ export const COLOR = {
 };
 
 // Instruments
-export const GUITAR = {
+const GUITAR = {
   text: "guitar",
   strings: 6,
   tuning: ["E", "A", "D", "G", "B", "e"]
 };
-export const UKULELE = {
+const UKULELE = {
   text: "ukulele",
   strings: 4,
   tuning: ["G", "C", "E", "A"]
 };
 
-export const INSTRUMENTS = [GUITAR, UKULELE];
+export const INSTRUMENTS = { guitar: GUITAR, ukulele: UKULELE };

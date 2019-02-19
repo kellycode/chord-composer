@@ -8,6 +8,9 @@ import App from "./App";
 
 const store = createStore(reducer);
 
+/**
+ * TheApp
+ */
 const TheApp = () => (
   <Provider store={store}>
     <App />

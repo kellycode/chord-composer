@@ -2,6 +2,7 @@
 
 export type Instrument = {
   strings: number,
+  text: string,
   tuning?: Array<string>
 };
 
@@ -21,8 +22,8 @@ export type ChordName = {
 export type ChordNote = {
   string: number,
   fret: number,
-  barre?: number,
-  finger?: string
+  barre?: ?number,
+  finger?: ?string
 };
 
 export type ExtraName = boolean;
@@ -32,10 +33,11 @@ export type State = {
   chordNames: Array<ChordName>,
   custom: boolean,
   settings: Settings,
-  currentKey: ?string,
-  currentChord: ?string,
+  currentKey: string,
+  currentChord: string,
   customExtraName: ExtraName,
   customChordNotes: Array<ChordNote>,
   customChordNames: Array<ChordName>,
-  customSettings: Settings
+  customSettings: Settings,
+  warning: string
 };

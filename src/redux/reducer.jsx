@@ -1,7 +1,8 @@
+/* @flow */
 import actionTypes from "./actionTypes";
-import * as C from "../constants";
 import keys from "../constants/keys";
-import { GUITAR, UKULELE } from "../constants/index";
+import { INSTRUMENTS } from "../constants/index";
+import type { State } from "../constants/types";
 
 export const initialState = {
   chordNotes: [],
@@ -9,12 +10,12 @@ export const initialState = {
   custom: false,
   settings: {
     frets: 4,
-    instrument: C.GUITAR,
+    instrument: INSTRUMENTS.guitar,
     startingFret: 1
   },
   currentKey: "a",
   currentChord: "maj",
-  customExtraName: true,
+  customExtraName: false,
   customChordNotes: [
     { string: 1, fret: 1, finger: "1", barre: 5 },
     { string: 2, fret: 3, finger: "3" },
@@ -37,13 +38,20 @@ export const initialState = {
   customSettings: {
     frets: 4,
     instrument: {
-      strings: 6
+      strings: 6,
+      text: "custom"
     },
     startingFret: 1
-  }
+  },
+  warning: ""
 };
 
-export const reducer = (state = initialState, action) => {
+/**
+ * Reducer
+ * @param {State} state - State
+ * @param {Action} action - Action
+ */
+export const reducer = (state: State = initialState, action: any): State => {
   switch (action.type) {
     case actionTypes.CHANGE_KEY:
       const newState = {
@@ -68,8 +76,8 @@ export const reducer = (state = initialState, action) => {
       };
     case actionTypes.CHANGE_MODE:
       switch (action.mode) {
-        case GUITAR.text: {
-          state.settings.instrument = GUITAR;
+        case INSTRUMENTS.guitar.text: {
+          state.settings.instrument = INSTRUMENTS.guitar;
           return {
             ...state,
             chordNames: keys[state.currentKey][state.currentChord].chordNames,
@@ -80,8 +88,8 @@ export const reducer = (state = initialState, action) => {
             custom: false
           };
         }
-        case UKULELE.text: {
-          state.settings.instrument = UKULELE;
+        case INSTRUMENTS.ukulele.text: {
+          state.settings.instrument = INSTRUMENTS.ukulele;
           return {
             ...state,
             chordNames: keys[state.currentKey][state.currentChord].chordNames,
@@ -168,14 +176,14 @@ export const reducer = (state = initialState, action) => {
       if (action.value === 1) {
         if (newSettings.frets < 16) {
           newSettings.frets++;
-          state.warning = null;
+          state.warning = "";
         } else {
           state.warning = "That's way too many frets!";
         }
       } else if (action.value === -1) {
         if (newSettings.frets > 1) {
           newSettings.frets--;
-          state.warning = null;
+          state.warning = "";
         } else {
           state.warning = "You at least need one fret!";
         }
@@ -191,14 +199,14 @@ export const reducer = (state = initialState, action) => {
       if (action.value === 1) {
         if (newSettings.instrument.strings < 16) {
           newSettings.instrument.strings++;
-          state.warning = null;
+          state.warning = "";
         } else {
           state.warning = "That's way too many strings!";
         }
       } else if (action.value === -1) {
         if (newSettings.instrument.strings > 2) {
           newSettings.instrument.strings--;
-          state.warning = null;
+          state.warning = "";
         } else {
           state.warning = "You at least need one strings!";
         }
@@ -215,14 +223,14 @@ export const reducer = (state = initialState, action) => {
       if (action.value === 1) {
         if (newSettings.startingFret < 99) {
           newSettings.startingFret++;
-          state.warning = null;
+          state.warning = "";
         } else {
           state.warning = "Your instrument has more than 99 frets?!";
         }
       } else if (action.value === -1) {
         if (newSettings.startingFret > 1) {
           newSettings.startingFret--;
-          state.warning = null;
+          state.warning = "";
         } else {
           state.warning = "What the heck is 0th fret!";
         }
@@ -305,10 +313,10 @@ export const reducer = (state = initialState, action) => {
     case actionTypes.ADD_NOTE: {
       const newChordNotes = [...state.customChordNotes];
       newChordNotes.push({
-        string: "",
-        fret: "",
-        finger: "",
-        barre: ""
+        string: 0,
+        fret: 0,
+        finger: undefined,
+        barre: undefined
       });
       return {
         ...state,

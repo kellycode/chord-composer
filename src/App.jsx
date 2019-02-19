@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+/* @flow */
+import React from "react";
 
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -12,16 +13,17 @@ const style = {
   }
 };
 
-class App extends Component {
-  render() {
-    return (
-      <div style={style.global}>
-        <Header />
-        <Body />
-        <Footer />
-      </div>
-    );
-  }
-}
+/**
+ * App
+ */
+const App = () => {
+  return (
+    <div style={style.global}>
+      <Header />
+      <Body />
+      <Footer />
+    </div>
+  );
+};
 
 export default App;

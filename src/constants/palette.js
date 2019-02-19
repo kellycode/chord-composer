@@ -1,3 +1,4 @@
+/* @flow */
 export const PALETTE = {
   black: "#000000",
   greyA: "#1D1D1D",

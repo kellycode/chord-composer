@@ -1,13 +1,11 @@
 /* @flow */
-import React, { Component } from "react";
+import React from "react";
 import { PALETTE } from "../../constants/palette";
 
 const style = {
   footer: {
     background: PALETTE.tealDark,
-    //bottom: 0,
     flex: 1,
-    flexShrink: 0,
     padding: 10,
     width: "100%",
     marginTop: "auto"
@@ -18,16 +16,17 @@ const style = {
   }
 };
 
-type Props = null;
+/**
+ * Footer
+ */
+const Footer = () => {
+  return (
+    <div style={style.footer}>
+      <p style={style.message}>
+        You can find the project here: https://github.com/hirokazutei/ChordGen
+      </p>
+    </div>
+  );
+};
 
-export default class Footer extends Component<Props> {
-  render() {
-    return (
-      <div style={style.footer}>
-        <p style={style.message}>
-          You can find the project here: https://github.com/hirokazutei/ChordGen
-        </p>
-      </div>
-    );
-  }
-}
+export default Footer;

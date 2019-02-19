@@ -5,6 +5,7 @@ import P5Wrapper from "./P5Wrapper";
 import Adjusters from "./Adjusters";
 import Custom from "./Custom";
 import { PALETTE } from "../../constants/palette";
+import type { State } from "../../constants/types";
 
 const style = {
   body: {
@@ -19,8 +20,14 @@ const style = {
 type Props = {
   custom: boolean
 };
-
+/**
+ * Body
+ * @prop {boolean} custom - Is Custom
+ */
 class Body extends Component<Props> {
+  /**
+   * Render
+   */
   render() {
     const { custom } = this.props;
     return (
@@ -32,8 +39,13 @@ class Body extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
-  return state;
+/**
+ * Map State to Props
+ * @param {State} state -State
+ */
+const mapStateToProps = (state: State): Props => {
+  const { custom } = state;
+  return { custom };
 };
 
 export default connect(mapStateToProps)(Body);

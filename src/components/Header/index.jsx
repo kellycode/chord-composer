@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Component } from "react";
+import React from "react";
 import { PALETTE } from "../../constants/palette";
 
 const style = {
@@ -13,14 +13,15 @@ const style = {
   }
 };
 
-type Props = null;
+/**
+ * Header
+ */
+const Header = () => {
+  return (
+    <div style={style.header}>
+      <h1 style={style.title}>CHORD-GEN</h1>
+    </div>
+  );
+};
 
-export default class HEADER extends Component<Props> {
-  render() {
-    return (
-      <div style={style.header}>
-        <h1 style={style.title}>CHORD-GEN</h1>
-      </div>
-    );
-  }
-}
+export default Header;

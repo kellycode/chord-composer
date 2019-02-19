@@ -1,3 +1,4 @@
+/* @flow */
 export default {
   CHANGE_KEY: "CHANGE_KEY",
   CHANGE_CHORD: "CHANGE_CHORD",
