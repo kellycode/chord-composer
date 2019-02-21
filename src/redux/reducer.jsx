@@ -18,8 +18,8 @@ export const initialState = {
   customExtraName: false,
   customChordNotes: [
     { string: 1, fret: 1, finger: "1", barre: 5 },
-    { string: 2, fret: 3, finger: "3" },
-    { string: 4, fret: 3, finger: "4" }
+    { string: 2, fret: 3, finger: "3", barre: null },
+    { string: 4, fret: 3, finger: "4", barre: null }
   ],
   customChordNames: [
     {
@@ -27,12 +27,6 @@ export const initialState = {
       sharp: true,
       flat: false,
       aux: ""
-    },
-    {
-      key: "B",
-      sharp: false,
-      flat: true,
-      aux: "7"
     }
   ],
   customSettings: {
@@ -52,288 +46,229 @@ export const initialState = {
  * @param {Action} action - Action
  */
 export const reducer = (state: State = initialState, action: any): State => {
+  const newState = { ...state };
+  const newCustomSettings = { ...newState.customSettings };
+  const newCustomChordNames = [...newState.customChordNames];
+  const newCustomChordNotes = [...newState.customChordNotes];
   switch (action.type) {
     case actionTypes.CHANGE_KEY:
-      const newState = {
-        ...state,
-        chordNames: keys[action.key][state.currentChord].chordNames,
-        chordNotes:
-          keys[action.key][state.currentChord].chordNotes[
-            state.settings.instrument.text
-          ],
-        currentKey: action.key
-      };
-      return newState;
+      newState.chordNames = keys[action.key][state.currentChord].chordNames;
+
+      newState.chordNotes =
+        keys[action.key][state.currentChord].chordNotes[
+          state.settings.instrument.text
+        ];
+      newState.currentKey = action.key;
+      break;
     case actionTypes.CHANGE_CHORD:
-      return {
-        ...state,
-        chordNames: keys[state.currentKey][action.chord].chordNames,
-        chordNotes:
-          keys[state.currentKey][action.chord].chordNotes[
-            state.settings.instrument.text
-          ],
-        currentChord: action.chord
-      };
+      newState.chordNames = keys[state.currentKey][action.chord].chordNames;
+      newState.chordNotes =
+        keys[state.currentKey][action.chord].chordNotes[
+          state.settings.instrument.text
+        ];
+      newState.currentChord = action.chord;
+      break;
     case actionTypes.CHANGE_MODE:
       switch (action.mode) {
         case INSTRUMENTS.guitar.text: {
-          state.settings.instrument = INSTRUMENTS.guitar;
-          return {
-            ...state,
-            chordNames: keys[state.currentKey][state.currentChord].chordNames,
-            chordNotes:
-              keys[state.currentKey][state.currentChord].chordNotes[
-                state.settings.instrument.text
-              ],
-            custom: false
-          };
+          newState.settings.instrument = INSTRUMENTS.guitar;
+          newState.custom = false;
+          break;
         }
         case INSTRUMENTS.ukulele.text: {
-          state.settings.instrument = INSTRUMENTS.ukulele;
-          return {
-            ...state,
-            chordNames: keys[state.currentKey][state.currentChord].chordNames,
-            chordNotes:
-              keys[state.currentKey][state.currentChord].chordNotes[
-                state.settings.instrument.text
-              ],
-            custom: false
-          };
+          newState.settings.instrument = INSTRUMENTS.ukulele;
+          newState.custom = false;
+          break;
         }
         default: {
+          newState.custom = true;
           break;
         }
       }
-      return {
-        ...state,
-        custom: true
-      };
+      break;
     // CHANGE NAME
     case actionTypes.CHANGE_NAME: {
-      const newChordName = [...state.customChordNames];
-      newChordName[action.value.index].key = action.value.text;
-      return {
-        ...state,
-        customChordNames: newChordName
-      };
+      newCustomChordNames[action.value.index].key = action.value.text;
+      break;
     }
     // CHANGE AUX TEXT
     case actionTypes.CHANGE_AUX_TEXT: {
-      const newChordName = [...state.customChordNames];
-      newChordName[action.value.index].aux = action.value.text;
-      return {
-        ...state,
-        customChordNames: newChordName
-      };
+      newCustomChordNames[action.value.index].aux = action.value.text;
+      break;
     }
     // CHANGE SUPER SYMBOL
     case actionTypes.CHANGE_SUPER_SYMBOL: {
-      const newChordName = [...state.customChordNames];
       switch (action.value.shift) {
         case "sharp": {
-          newChordName[action.value.index].sharp = true;
-          newChordName[action.value.index].flat = false;
+          newCustomChordNames[action.value.index].sharp = true;
+          newCustomChordNames[action.value.index].flat = false;
           break;
         }
         case "flat": {
-          newChordName[action.value.index].sharp = false;
-          newChordName[action.value.index].flat = true;
+          newCustomChordNames[action.value.index].sharp = false;
+          newCustomChordNames[action.value.index].flat = true;
           break;
         }
         default: {
-          newChordName[action.value.index].sharp = false;
-          newChordName[action.value.index].flat = false;
+          newCustomChordNames[action.value.index].sharp = false;
+          newCustomChordNames[action.value.index].flat = false;
+          break;
         }
       }
-      return {
-        ...state,
-        customChordNames: newChordName
-      };
+      break;
     }
     // TOGGLE EXTRA NAME
     case actionTypes.CHANGE_EXTRA_NAME: {
-      const newChordName = [...state.customChordNames];
-      if (state.customExtraName) {
-        newChordName.pop();
+      if (newState.customExtraName) {
+        newCustomChordNames.pop();
+        newState.customExtraName = false;
       } else {
-        newChordName.push({
+        newCustomChordNames.push({
           key: "A",
           sharp: false,
           flat: false,
           aux: ""
         });
+        newState.customExtraName = true;
       }
-      state.customChordNames = [...newChordName];
 
-      return {
-        ...state,
-        customExtraName: !state.customExtraName
-      };
+      break;
     }
     // CHANGE FRET
     case actionTypes.CHANGE_FRET: {
-      const newSettings = { ...state.customSettings };
       if (action.value === 1) {
-        if (newSettings.frets < 16) {
-          newSettings.frets++;
-          state.warning = "";
+        if (newCustomSettings.frets < 16) {
+          newCustomSettings.frets++;
+          newState.warning = "";
         } else {
-          state.warning = "That's way too many frets!";
+          newState.warning = "That's way too many frets!";
         }
       } else if (action.value === -1) {
-        if (newSettings.frets > 1) {
-          newSettings.frets--;
-          state.warning = "";
+        if (newCustomSettings.frets > 1) {
+          newCustomSettings.frets--;
+          newState.warning = "";
         } else {
-          state.warning = "You at least need one fret!";
+          newState.warning = "You at least need one fret!";
         }
       }
-      return {
-        ...state,
-        customSettings: newSettings
-      };
+      break;
     }
     // CHANGE FRET
     case actionTypes.CHANGE_STRING: {
-      const newSettings = { ...state.customSettings };
       if (action.value === 1) {
-        if (newSettings.instrument.strings < 16) {
-          newSettings.instrument.strings++;
-          state.warning = "";
+        if (newCustomSettings.instrument.strings < 16) {
+          newCustomSettings.instrument.strings++;
+          newState.warning = "";
         } else {
-          state.warning = "That's way too many strings!";
+          newState.warning = "That's way too many strings!";
         }
       } else if (action.value === -1) {
-        if (newSettings.instrument.strings > 2) {
-          newSettings.instrument.strings--;
-          state.warning = "";
+        if (newCustomSettings.instrument.strings > 2) {
+          newCustomSettings.instrument.strings--;
+          newState.warning = "";
         } else {
-          state.warning = "You at least need one strings!";
+          newState.warning = "You at least need one strings!";
         }
       }
-      return {
-        ...state,
-        customSettings: newSettings
-      };
+      break;
     }
 
     // CHANGE STARTING FRET
     case actionTypes.CHANGE_STARTING_FRET: {
-      const newSettings = { ...state.customSettings };
       if (action.value === 1) {
-        if (newSettings.startingFret < 99) {
-          newSettings.startingFret++;
-          state.warning = "";
+        if (newCustomSettings.startingFret < 99) {
+          newCustomSettings.startingFret++;
+          newState.warning = "";
         } else {
           state.warning = "Your instrument has more than 99 frets?!";
         }
       } else if (action.value === -1) {
-        if (newSettings.startingFret > 1) {
-          newSettings.startingFret--;
-          state.warning = "";
+        if (newCustomSettings.startingFret > 1) {
+          newCustomSettings.startingFret--;
+          newState.warning = "";
         } else {
-          state.warning = "What the heck is 0th fret!";
+          newState.warning = "What the heck is 0th fret!";
         }
       }
-      return {
-        ...state,
-        customSettings: newSettings
-      };
+      break;
     }
     // CHANGE_NOTE_STRING
     case actionTypes.CHANGE_NOTE_STRING: {
-      const newChordNotes = [...state.customChordNotes];
       if (isNaN(action.value)) {
-        const warning = "Please enter a valid number for the string.";
-        return { ...state, warning };
+        newState.warning = "Please enter a valid number for the string.";
+        break;
       } else if (action.value < 0) {
-        const warning = "Negative string does not make sense...";
-        return { ...state, warning };
-      } else if (action.value >= state.customSettings.instrument.strings) {
-        const warning = `You've only got ${
-          state.customSettings.instrument.strings
+        newState.warning = "Negative string does not make sense...";
+        break;
+      } else if (action.value >= newCustomSettings.instrument.strings) {
+        newState.warning = `You've only got ${
+          newCustomSettings.instrument.strings
         } strings there`;
-        return { ...state, warning };
+        break;
       }
-      newChordNotes[action.index].string = Number(action.value);
-      return {
-        ...state,
-        customChordNotes: newChordNotes
-      };
+      newCustomChordNotes[action.index].string = Number(action.value);
+      break;
     }
     // CHANGE_NOTE_FRET
     case actionTypes.CHANGE_NOTE_FRET: {
-      const newChordNotes = [...state.customChordNotes];
       if (isNaN(action.value)) {
-        const warning = "Please enter a valid number for the fret.";
-        return { ...state, warning };
+        newState.warning = "Please enter a valid number for the fret.";
+        break;
       } else if (action.value < 0) {
-        const warning = "Negative fret does not make sense...";
-        return { ...state, warning };
+        newState.warning = "Negative fret does not make sense...";
+        break;
       }
-      newChordNotes[action.index].fret = Number(action.value);
-      return {
-        ...state,
-        customChordNotes: newChordNotes
-      };
+      newCustomChordNotes[action.index].fret = Number(action.value);
+      break;
     }
 
     // CHANGE_NOTE_FINGER
     case actionTypes.CHANGE_NOTE_FINGER: {
-      const newChordNotes = [...state.customChordNotes];
-      newChordNotes[action.index].finger = action.value;
-      return {
-        ...state,
-        customChordNotes: newChordNotes
-      };
+      newCustomChordNotes[action.index].finger = action.value;
+      break;
     }
     // CHANGE_NOTE_BARRE
     case actionTypes.CHANGE_NOTE_BARRE: {
-      const newChordNotes = [...state.customChordNotes];
       if (isNaN(action.value)) {
-        const warning = "Please enter a valid number for the fret.";
-        return { ...state, warning };
+        newState.warning = "Please enter a valid number for the fret.";
+        break;
       } else if (action.value < 0) {
-        const warning = "Negative fret does not make sense...";
-        return { ...state, warning };
-      } else if (action.value >= state.customSettings.instrument.strings) {
-        const warning = `You've only got ${
-          state.customSettings.instrument.strings
+        newState.warning = "Negative fret does not make sense...";
+        break;
+      } else if (action.value >= newCustomSettings.instrument.strings) {
+        newState.warning = `You've only got ${
+          newCustomSettings.instrument.strings
         } strings there`;
-        return { ...state, warning };
+        break;
       }
-      newChordNotes[action.index].barre = Number(action.value);
-      return {
-        ...state,
-        customChordNotes: newChordNotes
-      };
+      newCustomChordNotes[action.index].barre = Number(action.value);
+      break;
     }
 
     // ADD_NOTE
     case actionTypes.ADD_NOTE: {
-      const newChordNotes = [...state.customChordNotes];
-      newChordNotes.push({
+      newCustomChordNotes.push({
         string: 0,
         fret: 0,
-        finger: undefined,
-        barre: undefined
+        finger: null,
+        barre: null
       });
-      return {
-        ...state,
-        customChordNotes: newChordNotes
-      };
+      break;
     }
     // DELETE_NOTE
     case actionTypes.DELETE_NOTE: {
-      const newChordNotes = [...state.customChordNotes];
-      newChordNotes.splice(action.index, 1);
-      return {
-        ...state,
-        customChordNotes: newChordNotes
-      };
+      newCustomChordNotes.splice(action.index, 1);
+      break;
     }
-
     default:
-      return { ...state };
+      break;
   }
+  return {
+    ...newState,
+    chordNames: newState.chordNames,
+    chordNotes: newState.chordNotes,
+    customSettings: newCustomSettings,
+    customChordNotes: newCustomChordNotes,
+    customChordNames: newCustomChordNames
+  };
 };

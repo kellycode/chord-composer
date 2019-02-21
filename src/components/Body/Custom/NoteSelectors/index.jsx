@@ -170,7 +170,11 @@ class NoteSelectors extends Component<Props> {
                       style={styles.noteInput}
                       type="text"
                       onChange={this.onChangeNoteFinger.bind(this, index)}
-                      value={this.props.customChordNotes[index].finger}
+                      value={
+                        this.props.customChordNotes[index].finger
+                          ? this.props.customChordNotes[index].finger
+                          : ""
+                      }
                     />
                   </div>
                   <div style={styles.column}>
@@ -179,7 +183,11 @@ class NoteSelectors extends Component<Props> {
                       style={styles.noteInput}
                       type="text"
                       onChange={this.onChangeNoteBarre.bind(this, index)}
-                      value={this.props.customChordNotes[index].barre}
+                      value={
+                        this.props.customChordNotes[index].barre
+                          ? this.props.customChordNotes[index].barre
+                          : ""
+                      }
                     />
                   </div>
                   <button

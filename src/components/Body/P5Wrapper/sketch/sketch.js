@@ -249,7 +249,8 @@ export const renderChordNotes = (
           : stringSpacing * noteString);
       const y =
         CONST.TOP_SPACE +
-        fretSpacing * (normalizedFret ? normalizedFret - 0.385 : 0);
+        fretSpacing * (normalizedFret ? normalizedFret - 0.5 : 0) +
+        CONST.TEXT_SIZE.finger / 4;
       sketch.fill(CONST.COLOR.white);
       if (finger) {
         sketch.textSize(CONST.TEXT_SIZE.finger);
