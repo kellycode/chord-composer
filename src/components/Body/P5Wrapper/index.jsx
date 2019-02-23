@@ -4,10 +4,24 @@ import { connect } from "react-redux";
 import sketch from "./sketch";
 
 import type { State } from "../../../constants/types";
+import { PALETTE } from "../../../constants/palette";
 
 const styles = {
+  base: {
+    borderColor: PALETTE.teal,
+    backgroundColor: PALETTE.white,
+    borderStyle: "dashed",
+    borderRadius: 10,
+    borderWidth: 2,
+    display: "flex",
+    flexDirection: "column",
+    height: 700,
+    justifyContent: "center",
+    margin: 25
+  },
   sketch: {
-    width: 500
+    height: 670,
+    width: 520
   }
 };
 
@@ -44,7 +58,11 @@ class P5Wrapper extends Component<Props> {
    * Render
    */
   render() {
-    return <div id="canvas-container" style={styles.sketch} />;
+    return (
+      <div style={styles.base}>
+        <div id="canvas-container" style={styles.sketch} />
+      </div>
+    );
   }
 }
 

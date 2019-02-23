@@ -12,13 +12,19 @@ const DEFAULT_STYLE = {
     margin: 5
   },
   border: {
+    backgroundColor: PALETTE.white,
+    borderColor: PALETTE.teal,
+    borderStyle: "dashed",
+    borderRadius: 5,
+    borderWidth: 2,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
-    borderColor: PALETTE.tealLight,
-    borderStyle: "solid",
-    borderWidth: 3,
     padding: 10
+  },
+  title: {
+    color: PALETTE.teal,
+    fontWeight: 30
   }
 };
 

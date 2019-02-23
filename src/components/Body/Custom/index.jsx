@@ -5,7 +5,7 @@ import NameSelectors from "./NameSelectors";
 import NeckSelectors from "./NeckSelectors";
 import NoteSelectors from "./NoteSelectors";
 
-const style = {
+const styles = {
   custom: {
     display: "flex",
     flexDirection: "column",
@@ -21,7 +21,7 @@ const style = {
  */
 const Custom = () => {
   return (
-    <div style={style.custom}>
+    <div style={styles.custom}>
       <ModeChange />
       <NeckSelectors />
       <NameSelectors />

@@ -1,14 +1,16 @@
 /* @flow */
 import React from "react";
 import { PALETTE } from "../../constants/palette";
+import DEFAULT_STYLE from "../../constants/styles";
 
-const style = {
+const styles = {
   header: {
     background: PALETTE.teal,
     flex: 1,
     padding: 10
   },
   title: {
+    ...DEFAULT_STYLE.title,
     color: PALETTE.white
   }
 };
@@ -18,8 +20,8 @@ const style = {
  */
 const Header = () => {
   return (
-    <div style={style.header}>
-      <h1 style={style.title}>CHORD-GEN</h1>
+    <div style={styles.header}>
+      <h1 style={styles.title}>CHORD-GEN</h1>
     </div>
   );
 };

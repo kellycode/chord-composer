@@ -3,10 +3,11 @@ import React from "react";
 
 import Header from "./components/Header";
 import Body from "./components/Body";
-import Footer from "./components/Footer";
+import { PALETTE } from "./constants/palette";
 
-const style = {
+const styles = {
   global: {
+    backgroundColor: PALETTE.background,
     display: "flex",
     flexDirection: "column",
     minHeight: "100%"
@@ -18,10 +19,9 @@ const style = {
  */
 const App = () => {
   return (
-    <div style={style.global}>
+    <div style={styles.global}>
       <Header />
       <Body />
-      <Footer />
     </div>
   );
 };

@@ -4,16 +4,20 @@ import { connect } from "react-redux";
 import P5Wrapper from "./P5Wrapper";
 import Adjusters from "./Adjusters";
 import Custom from "./Custom";
-import { PALETTE } from "../../constants/palette";
+import SocialMedia from "./SocialMedia";
 import type { State } from "../../constants/types";
 
-const style = {
+const styles = {
   body: {
-    backgroundColor: PALETTE.white,
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     flex: 1
+  },
+  rightSide: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
   }
 };
 
@@ -31,9 +35,12 @@ class Body extends Component<Props> {
   render() {
     const { custom } = this.props;
     return (
-      <div style={style.body}>
+      <div style={styles.body}>
         <P5Wrapper />
-        {custom ? <Custom /> : <Adjusters />}
+        <div style={styles.rightSide}>
+          {custom ? <Custom /> : <Adjusters />}
+          <SocialMedia />
+        </div>
       </div>
     );
   }

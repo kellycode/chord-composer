@@ -6,8 +6,9 @@ import { INDEX_KEYS } from "../../../../constants/keys";
 import actionTypes from "../../../../redux/actionTypes";
 import { PALETTE } from "../../../../constants/palette";
 import DEFAULT_STYLE from "../../../../constants/styles";
+import type { State } from "../../../../constants/types";
 
-const style = {
+const styles = {
   border: {
     ...DEFAULT_STYLE.border
   },
@@ -17,19 +18,30 @@ const style = {
     minWidth: 80,
     ...DEFAULT_STYLE.button
   },
+  buttonSelected: {
+    fontSize: 16,
+    minHeight: 40,
+    minWidth: 80,
+    ...DEFAULT_STYLE.button,
+    backgroundColor: PALETTE.tealDark
+  },
   row: {
     display: "flex",
     flexDirection: "row"
   },
   title: {
-    color: PALETTE.tealLight
+    ...DEFAULT_STYLE.title
   },
   view: {
     margin: "10px 5px 10px 5px"
   }
 };
 
-type Props = Dispatch;
+type StateProps = {
+  currentKey: string
+};
+
+type Props = Dispatch & StateProps;
 
 /**
  * Key Changer
@@ -52,26 +64,34 @@ class KeyChangers extends Component<Props> {
    */
   render() {
     return (
-      <div style={style.view}>
-        <h2 style={style.title}>KEYS</h2>
-        <div style={style.border}>
-          <div style={style.row}>
+      <div style={styles.view}>
+        <h2 style={styles.title}>KEYS</h2>
+        <div style={styles.border}>
+          <div style={styles.row}>
             {INDEX_KEYS.slice(0, 6).map(key => (
               <button
                 onClick={() => this.changeKey(key.key)}
                 key={key.key}
-                style={style.button}
+                style={
+                  this.props.currentKey === key.key
+                    ? styles.buttonSelected
+                    : styles.button
+                }
               >
                 {key.display}
               </button>
             ))}
           </div>
-          <div style={style.row}>
+          <div style={styles.row}>
             {INDEX_KEYS.slice(6, 12).map(key => (
               <button
                 onClick={() => this.changeKey(key.key)}
                 key={key.key}
-                style={style.button}
+                style={
+                  this.props.currentKey === key.key
+                    ? styles.buttonSelected
+                    : styles.button
+                }
               >
                 {key.display}
               </button>
@@ -83,4 +103,13 @@ class KeyChangers extends Component<Props> {
   }
 }
 
-export default connect()(KeyChangers);
+/**
+ * Map State to Props
+ * @param {State} state - State
+ */
+const mapStateToProps = (state: State): StateProps => {
+  const { currentKey } = state;
+  return { currentKey };
+};
+
+export default connect(mapStateToProps)(KeyChangers);

@@ -5,7 +5,7 @@ import ModeChange from "../ModeChange";
 import KeyChangers from "./KeyChange";
 import KeyModifiers from "./KeyModify";
 
-const style = {
+const styles = {
   adjusters: {
     display: "flex",
     flexDirection: "column",
@@ -19,7 +19,7 @@ const style = {
  */
 const Adjusters = () => {
   return (
-    <div style={style.adjusters}>
+    <div style={styles.adjusters}>
       <ModeChange />
       <KeyChangers />
       <KeyModifiers />

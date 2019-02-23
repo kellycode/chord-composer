@@ -1,5 +1,4 @@
 /* @flow */
-
 export type Instrument = {
   strings: number,
   text: string,
@@ -25,6 +24,8 @@ export type ChordNote = {
   barre?: ?number,
   finger?: ?string
 };
+
+export type Modes = "guitar" | "ukulele" | "custom";
 
 export type ExtraName = boolean;
 

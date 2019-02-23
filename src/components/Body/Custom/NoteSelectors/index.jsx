@@ -45,7 +45,7 @@ const styles = {
     margin: 5
   },
   title: {
-    color: PALETTE.tealLight
+    ...DEFAULT_STYLE.title
   },
   view: {
     margin: "10px 5px 10px 5px"

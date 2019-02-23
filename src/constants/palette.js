@@ -1,12 +1,9 @@
 /* @flow */
 export const PALETTE = {
+  background: "#f2f9fc",
   black: "#000000",
-  greyA: "#1D1D1D",
-  greyB: "#3F3F3F",
-  greyC: "#8F8F8F",
-  greyD: "#AAAAAA",
-  white: "#FFFFFF",
+  white: "#ffffff",
   teal: "#00b8ff",
-  tealLight: "#7fdbff",
+  tealLight: "#f7fcff",
   tealDark: "#006e99"
 };
