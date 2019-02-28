@@ -4,15 +4,15 @@ import { connect } from "react-redux";
 import P5Wrapper from "./P5Wrapper";
 import Adjusters from "./Adjusters";
 import Custom from "./Custom";
-import SocialMedia from "./SocialMedia";
 import type { State } from "../../constants/types";
 
 const styles = {
   body: {
     display: "flex",
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    flex: 1
+    justifyContent: "center"
   },
   rightSide: {
     display: "flex",
@@ -39,7 +39,6 @@ class Body extends Component<Props> {
         <P5Wrapper />
         <div style={styles.rightSide}>
           {custom ? <Custom /> : <Adjusters />}
-          <SocialMedia />
         </div>
       </div>
     );

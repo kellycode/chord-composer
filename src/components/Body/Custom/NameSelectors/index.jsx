@@ -32,7 +32,7 @@ const styles = {
     margin: 3
   },
   mainNameInput: {
-    color: PALETTE.black,
+    color: PALETTE.tealDark,
     fontSize: 30,
     margin: 5,
     width: 70
@@ -48,7 +48,7 @@ const styles = {
     fontSize: 40
   },
   subTextInput: {
-    color: PALETTE.black,
+    color: PALETTE.tealDark,
     fontSize: 10,
     margin: 3,
     width: 70
@@ -157,9 +157,7 @@ class NameSelectors extends Component<Props> {
                 <button
                   style={styles.keyButtons}
                   onClick={() => this.onChangeSuperSymbol("default", 0)}
-                >
-                  {" "}
-                </button>
+                />
               </div>
               <input
                 style={styles.subTextInput}

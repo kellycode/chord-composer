@@ -8,11 +8,7 @@ import { PALETTE } from "../../../constants/palette";
 
 const styles = {
   base: {
-    borderColor: PALETTE.teal,
     backgroundColor: PALETTE.white,
-    borderStyle: "dashed",
-    borderRadius: 10,
-    borderWidth: 2,
     display: "flex",
     flexDirection: "column",
     height: 700,

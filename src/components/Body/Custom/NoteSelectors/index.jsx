@@ -17,7 +17,7 @@ const styles = {
     ...DEFAULT_STYLE.border
   },
   noteInput: {
-    color: PALETTE.black,
+    color: PALETTE.tealDark,
     fontSize: 20,
     margin: 5,
     width: 50

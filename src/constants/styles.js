@@ -13,17 +13,13 @@ const DEFAULT_STYLE = {
   },
   border: {
     backgroundColor: PALETTE.white,
-    borderColor: PALETTE.teal,
-    borderStyle: "dashed",
-    borderRadius: 5,
-    borderWidth: 2,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
     padding: 10
   },
   title: {
-    color: PALETTE.teal,
+    color: PALETTE.white,
     fontWeight: 30
   }
 };

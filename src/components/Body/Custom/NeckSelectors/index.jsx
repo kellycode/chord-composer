@@ -42,7 +42,7 @@ const styles = {
     ...DEFAULT_STYLE.button
   },
   mainNameInput: {
-    color: PALETTE.black,
+    color: PALETTE.tealDark,
     fontSize: 30,
     margin: 5,
     width: 70
@@ -62,6 +62,10 @@ const styles = {
   },
   text: {
     color: PALETTE.teal,
+    margin: 5
+  },
+  textCurrent: {
+    color: PALETTE.tealDark,
     margin: 5
   },
   title: {
@@ -126,7 +130,9 @@ class NeckSelectors extends Component<Props> {
           <div style={styles.row}>
             <div style={styles.change}>
               <h3 style={styles.text}>Frets:</h3>
-              <h2 style={styles.text}>{this.props.customSettings.frets}</h2>
+              <h2 style={styles.textCurrent}>
+                {this.props.customSettings.frets}
+              </h2>
               <div style={styles.buttons}>
                 <button
                   style={styles.increaseButton}
@@ -144,7 +150,7 @@ class NeckSelectors extends Component<Props> {
             </div>
             <div style={styles.change}>
               <h3 style={styles.text}>Strings:</h3>
-              <h2 style={styles.text}>
+              <h2 style={styles.textCurrent}>
                 {this.props.customSettings.instrument.strings}
               </h2>
               <div style={styles.buttons}>
@@ -164,7 +170,7 @@ class NeckSelectors extends Component<Props> {
             </div>
             <div style={styles.change}>
               <h3 style={styles.text}>Start:</h3>
-              <h2 style={styles.text}>
+              <h2 style={styles.textCurrent}>
                 {this.props.customSettings.startingFret}
               </h2>
               <div style={styles.buttons}>

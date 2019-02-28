@@ -25,7 +25,7 @@ const styles = {
     minHeight: 50,
     minWidth: 120,
     ...DEFAULT_STYLE.button,
-    backgroundColor: PALETTE.tealDark
+    backgroundColor: PALETTE.orange
   },
   title: {
     ...DEFAULT_STYLE.title
