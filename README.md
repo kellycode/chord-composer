@@ -10,11 +10,11 @@ I am building a simple app for myself to keep track of the songs I play on guita
 
 ### Chord-Gen offers quickly accessible Guitar/Ukelele ([or more if anyone wants to contribute](www.github.com)) chords!
 
-![Main Image](https://github.com/hirokazutei/chord-gen/blob/master/images/main.png)
+![Main Image](https://github.com/hirokazutei/chord-gen/blob/master/images/mainScreen.png)
 
 ### CHORD_GEN offers the ability to customize your own custom chord!
 
-![Main Image](https://github.com/hirokazutei/chord-gen/blob/master/images/custom.png)
+![Main Image](https://github.com/hirokazutei/chord-gen/blob/master/images/customScreen.png)
 
 #### Limitations
 
