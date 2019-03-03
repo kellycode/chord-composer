@@ -37,7 +37,7 @@ const Header = () => {
   return (
     <div style={styles.header}>
       <img src={logo} style={styles.webIcon} alt="github" />
-      <h1 style={styles.title}>chord-gen</h1>
+      <h1 style={styles.title}>chord-composer</h1>
       <SocialMedia />
     </div>
   );
