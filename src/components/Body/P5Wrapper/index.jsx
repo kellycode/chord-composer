@@ -13,7 +13,7 @@ const styles = {
     boxShadow: "0px 0px 20px #196472",
     display: "flex",
     flexDirection: "column",
-    height: 720,
+    height: 710,
     justifyContent: "center",
     margin: 25
   },
