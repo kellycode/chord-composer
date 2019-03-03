@@ -26,6 +26,7 @@ const styles = {
   },
   webIconGitHub: {
     height: 50,
+    marginBottom: 20,
     marginLeft: 20
   }
 };

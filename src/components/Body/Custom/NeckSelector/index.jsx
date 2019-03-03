@@ -58,15 +58,22 @@ const styles = {
     alignItems: "center",
     display: "flex",
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "center",
+    marginLeft: 10,
+    marginRight: 10
   },
   text: {
     color: PALETTE.teal,
+    fontWeight: "normal",
+    fontSize: 15,
+    transform: "scaleY(1.5)",
     margin: 5
   },
   textCurrent: {
     color: PALETTE.tealDark,
-    margin: 5
+    margin: 5,
+    marginRight: 10
   },
   title: {
     ...DEFAULT_STYLE.title
@@ -125,11 +132,11 @@ class NeckSelectors extends Component<Props> {
   render() {
     return (
       <div style={styles.view}>
-        <h2 style={styles.title}>{"FRET & STRINGS"}</h2>
         <div style={styles.border}>
+          <h3 style={styles.title}>{"FRET & STRINGS"}</h3>
           <div style={styles.row}>
             <div style={styles.change}>
-              <h3 style={styles.text}>Frets:</h3>
+              <h4 style={styles.text}>FRETS:</h4>
               <h2 style={styles.textCurrent}>
                 {this.props.customSettings.frets}
               </h2>
@@ -149,7 +156,7 @@ class NeckSelectors extends Component<Props> {
               </div>
             </div>
             <div style={styles.change}>
-              <h3 style={styles.text}>Strings:</h3>
+              <h4 style={styles.text}>STRINGS:</h4>
               <h2 style={styles.textCurrent}>
                 {this.props.customSettings.instrument.strings}
               </h2>
@@ -169,7 +176,7 @@ class NeckSelectors extends Component<Props> {
               </div>
             </div>
             <div style={styles.change}>
-              <h3 style={styles.text}>Start:</h3>
+              <h4 style={styles.text}>START:</h4>
               <h2 style={styles.textCurrent}>
                 {this.props.customSettings.startingFret}
               </h2>

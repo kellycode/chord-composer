@@ -20,16 +20,25 @@ const styles = {
     color: PALETTE.tealDark,
     fontSize: 20,
     margin: 5,
-    width: 50
+    marginLeft: 15,
+    marginRight: 15,
+    width: 65
   },
   deleteButton: {
     height: 25,
-    margin: 10,
-    width: 25,
-    ...DEFAULT_STYLE.button
+    backgroundColor: PALETTE.teal,
+    borderRadius: 3,
+    border: "none",
+    color: PALETTE.white,
+    fontWeight: "bold",
+    margin: 5,
+    marginLeft: 15,
+    marginRight: 15,
+    width: 65
   },
   column: {
     alignItems: "center",
+    justifyContent: "space-evenly",
     display: "flex",
     flex: 1,
     flesDirection: "column"
@@ -40,10 +49,23 @@ const styles = {
     flexDirection: "row",
     justifyContent: "space-evenly"
   },
-  text: {
-    color: PALETTE.teal,
-    margin: 5
+  textSpace: {
+    display: "flex",
+    fontWeight: 20,
+    margin: 5,
+    marginLeft: 15,
+    marginRight: 15,
+    justifyContent: "center",
+    width: 65
   },
+  text: {
+    alignSelf: "center",
+    color: PALETTE.teal,
+    fontWeight: "normal",
+    fontSize: 15,
+    transform: "scaleY(1.5)"
+  },
+
   title: {
     ...DEFAULT_STYLE.title
   },
@@ -140,61 +162,70 @@ class NoteSelectors extends Component<Props> {
   render() {
     return (
       <div style={styles.view}>
-        <h2 style={styles.title}>{"NOTES"}</h2>
         <div style={styles.border}>
+          <h3 style={styles.title}>{"NOTES"}</h3>
           <div style={styles.row}>
+            <div style={styles.column}>
+              <div style={styles.textSpace}>
+                <h4 style={styles.text}>STRING</h4>
+              </div>
+              <div style={styles.textSpace}>
+                <h4 style={styles.text}>FRET</h4>
+              </div>
+
+              <div style={styles.textSpace}>
+                <h4 style={styles.text}>FINGER</h4>
+              </div>
+
+              <div style={styles.textSpace}>
+                <h4 style={styles.text}>BARRE</h4>
+              </div>
+
+              <div style={styles.textSpace}>
+                <h4 style={styles.text}>DELETE</h4>
+              </div>
+            </div>
+
             {this.props.customChordNotes.map((chordNote, index) => {
               return (
                 <div style={styles.column} key={index}>
-                  <div style={styles.column}>
-                    <h3 style={styles.text}>String:</h3>
-                    <input
-                      style={styles.noteInput}
-                      type="text"
-                      onChange={this.onChangeNoteString.bind(this, index)}
-                      value={this.props.customChordNotes[index].string}
-                    />
-                  </div>
-                  <div style={styles.column}>
-                    <h3 style={styles.text}>Fret:</h3>
-                    <input
-                      style={styles.noteInput}
-                      type="text"
-                      onChange={this.onChangeNoteFret.bind(this, index)}
-                      value={this.props.customChordNotes[index].fret}
-                    />
-                  </div>
-                  <div style={styles.column}>
-                    <h3 style={styles.text}>Finger:</h3>
-                    <input
-                      style={styles.noteInput}
-                      type="text"
-                      onChange={this.onChangeNoteFinger.bind(this, index)}
-                      value={
-                        this.props.customChordNotes[index].finger
-                          ? this.props.customChordNotes[index].finger
-                          : ""
-                      }
-                    />
-                  </div>
-                  <div style={styles.column}>
-                    <h3 style={styles.text}>Barre:</h3>
-                    <input
-                      style={styles.noteInput}
-                      type="text"
-                      onChange={this.onChangeNoteBarre.bind(this, index)}
-                      value={
-                        this.props.customChordNotes[index].barre
-                          ? this.props.customChordNotes[index].barre
-                          : ""
-                      }
-                    />
-                  </div>
+                  <input
+                    style={styles.noteInput}
+                    type="text"
+                    onChange={this.onChangeNoteString.bind(this, index)}
+                    value={this.props.customChordNotes[index].string}
+                  />
+                  <input
+                    style={styles.noteInput}
+                    type="text"
+                    onChange={this.onChangeNoteFret.bind(this, index)}
+                    value={this.props.customChordNotes[index].fret}
+                  />
+                  <input
+                    style={styles.noteInput}
+                    type="text"
+                    onChange={this.onChangeNoteFinger.bind(this, index)}
+                    value={
+                      this.props.customChordNotes[index].finger
+                        ? this.props.customChordNotes[index].finger
+                        : ""
+                    }
+                  />
+                  <input
+                    style={styles.noteInput}
+                    type="text"
+                    onChange={this.onChangeNoteBarre.bind(this, index)}
+                    value={
+                      this.props.customChordNotes[index].barre
+                        ? this.props.customChordNotes[index].barre
+                        : ""
+                    }
+                  />
                   <button
                     style={styles.deleteButton}
                     onClick={this.onDeleteNote.bind(this, index)}
                   >
-                    x
+                    X
                   </button>
                 </div>
               );

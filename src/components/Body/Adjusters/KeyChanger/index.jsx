@@ -65,8 +65,8 @@ class KeyChanger extends Component<Props> {
   render() {
     return (
       <div style={styles.view}>
-        <h2 style={styles.title}>KEYS</h2>
         <div style={styles.border}>
+          <h3 style={styles.title}>KEYS</h3>
           <div style={styles.row}>
             {INDEX_KEYS.slice(0, 6).map(key => (
               <button

@@ -38,6 +38,7 @@ const styles = {
     width: 70
   },
   row: {
+    alignSelf: "center",
     alignItems: "center",
     display: "flex",
     flex: 1,
@@ -131,8 +132,8 @@ class NameSelectors extends Component<Props> {
   render() {
     return (
       <div style={styles.view}>
-        <h2 style={styles.title}>NAME</h2>
         <div style={styles.border}>
+          <h3 style={styles.title}>NAME</h3>
           <div style={styles.row}>
             <input
               style={styles.mainNameInput}

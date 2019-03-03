@@ -66,8 +66,8 @@ class KeyModifier extends Component<Props> {
   render() {
     return (
       <div style={styles.view}>
-        <h2 style={styles.title}>CHORDS</h2>
         <div style={styles.border}>
+          <h3 style={styles.title}>CHORDS</h3>
           <div style={styles.row}>
             {INDEX_CHORD.slice(0, 4).map(chord => {
               return (

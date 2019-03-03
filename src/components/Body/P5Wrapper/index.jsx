@@ -9,9 +9,11 @@ import { PALETTE } from "../../../constants/palette";
 const styles = {
   base: {
     backgroundColor: PALETTE.white,
+    borderRadius: 10,
+    boxShadow: "0px 0px 20px #196472",
     display: "flex",
     flexDirection: "column",
-    height: 700,
+    height: 720,
     justifyContent: "center",
     margin: 25
   },

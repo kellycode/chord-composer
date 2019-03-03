@@ -13,14 +13,20 @@ const DEFAULT_STYLE = {
   },
   border: {
     backgroundColor: PALETTE.white,
+    borderRadius: 5,
+    boxShadow: "0px 0px 15px #196472",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
     padding: 10
   },
   title: {
-    color: PALETTE.white,
-    fontWeight: 30
+    alignSelf: "flex-start",
+    color: PALETTE.title,
+    fontWeight: "normal",
+    margin: 5,
+    marginBottom: 8,
+    transform: "scaleY(1.2)"
   }
 };
 

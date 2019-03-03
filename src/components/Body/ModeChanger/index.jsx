@@ -12,13 +12,18 @@ import type { Modes, State } from "../../../constants/types";
 const styles = {
   border: {
     ...DEFAULT_STYLE.border,
-    flexDirection: "row"
+    flexDirection: "column"
   },
   button: {
     fontSize: 20,
     minHeight: 50,
     minWidth: 120,
     ...DEFAULT_STYLE.button
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly"
   },
   buttonSelected: {
     fontSize: 20,
@@ -60,27 +65,27 @@ class ModeChanger extends Component<Props> {
    * Render
    */
   render() {
-    console.log(this.props.currentMode);
-    console.log(INDEX_MODES);
     return (
       <div style={styles.view}>
-        <h2 style={styles.title}>MODES</h2>
         <div style={styles.border}>
-          {INDEX_MODES.slice(0, 4).map(mode => {
-            return (
-              <button
-                onClick={() => this.changeMode(mode.value)}
-                key={mode.value}
-                style={
-                  this.props.currentMode === mode.value
-                    ? styles.buttonSelected
-                    : styles.button
-                }
-              >
-                {mode.display}
-              </button>
-            );
-          })}
+          <h3 style={styles.title}>MODES</h3>
+          <div style={styles.buttons}>
+            {INDEX_MODES.slice(0, 4).map(mode => {
+              return (
+                <button
+                  onClick={() => this.changeMode(mode.value)}
+                  key={mode.value}
+                  style={
+                    this.props.currentMode === mode.value
+                      ? styles.buttonSelected
+                      : styles.button
+                  }
+                >
+                  {mode.display}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
