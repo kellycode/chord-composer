@@ -13,7 +13,8 @@ const styles = {
     minHeight: "100%"
   },
   base: {
-    backgroundColor: PALETTE.black,
+    backgroundCoor: PALETTE.black,
+    minWidth: 700,
     paddingLeft: "auto",
     paddingRight: "auto"
   },
