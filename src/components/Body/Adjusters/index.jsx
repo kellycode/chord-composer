@@ -1,9 +1,9 @@
 /* @flow */
 import React from "react";
 
-import ModeChange from "../ModeChange";
-import KeyChangers from "./KeyChange";
-import KeyModifiers from "./KeyModify";
+import ModeChanger from "../ModeChanger";
+import KeyChanger from "./KeyChanger";
+import KeyModifier from "./KeyModifier";
 
 const styles = {
   adjusters: {
@@ -20,9 +20,9 @@ const styles = {
 const Adjusters = () => {
   return (
     <div style={styles.adjusters}>
-      <ModeChange />
-      <KeyChangers />
-      <KeyModifiers />
+      <ModeChanger />
+      <KeyChanger />
+      <KeyModifier />
     </div>
   );
 };

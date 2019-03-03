@@ -1,9 +1,9 @@
 /* @flow */
 import React from "react";
-import ModeChange from "../ModeChange";
-import NameSelectors from "./NameSelectors";
-import NeckSelectors from "./NeckSelectors";
-import NoteSelectors from "./NoteSelectors";
+import ModeChanger from "../ModeChanger";
+import NameSelector from "./NameSelector";
+import NeckSelector from "./NeckSelector";
+import NoteSelector from "./NoteSelector";
 
 const styles = {
   custom: {
@@ -22,10 +22,10 @@ const styles = {
 const Custom = () => {
   return (
     <div style={styles.custom}>
-      <ModeChange />
-      <NeckSelectors />
-      <NameSelectors />
-      <NoteSelectors />
+      <ModeChanger />
+      <NeckSelector />
+      <NameSelector />
+      <NoteSelector />
     </div>
   );
 };

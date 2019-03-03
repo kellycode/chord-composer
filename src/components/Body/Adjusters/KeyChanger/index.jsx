@@ -47,7 +47,7 @@ type Props = Dispatch & StateProps;
  * Key Changer
  * @prop {Dispatch} props  - Properties
  */
-class KeyChangers extends Component<Props> {
+class KeyChanger extends Component<Props> {
   /**
    * Change Key
    * @prop {string} key - Key
@@ -112,4 +112,4 @@ const mapStateToProps = (state: State): StateProps => {
   return { currentKey };
 };
 
-export default connect(mapStateToProps)(KeyChangers);
+export default connect(mapStateToProps)(KeyChanger);

@@ -41,10 +41,10 @@ type StateProps = {
 type Props = Dispatch;
 
 /**
- * Name Selectors
+ * Mode Changers
  * @prop {Props} props - Properties
  */
-class ModeChange extends Component<Props> {
+class ModeChanger extends Component<Props> {
   /**
    * Change Mode
    * @param {string} mode - Mode
@@ -102,4 +102,4 @@ const mapStateToProps = (state: State): StateProps => {
   return { currentMode: "custom" };
 };
 
-export default connect(mapStateToProps)(ModeChange);
+export default connect(mapStateToProps)(ModeChanger);

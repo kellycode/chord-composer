@@ -48,7 +48,7 @@ type Props = Dispatch & StateProps;
  * Key Modifiers
  * @prop {Dispatch} props  - Properties
  */
-class KeyModifiers extends Component<Props> {
+class KeyModifier extends Component<Props> {
   /**
    * Change Chord
    * @param {string} chord - Chord
@@ -117,4 +117,4 @@ const mapStateToProps = (state: State): StateProps => {
   return { currentChord };
 };
 
-export default connect(mapStateToProps)(KeyModifiers);
+export default connect(mapStateToProps)(KeyModifier);
