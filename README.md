@@ -1,5 +1,9 @@
 # CHORD-COMPOSER
 
+## What Is It:
+
+Checkit out [HERE](http://chord-composer.xyz/)
+
 There are already several chord-generators out there, such as [ChordPix](https://ChordPix.com), however, many of them fail to acommodate for instruments other than guitar.
 
 #### Real Reason

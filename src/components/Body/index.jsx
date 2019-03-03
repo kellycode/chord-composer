@@ -50,7 +50,7 @@ class Body extends Component<Props> {
         <div style={styles.rightSide}>
           {custom ? <Custom /> : <Adjusters />}
           <a
-            href="https://github.com/hirokazutei/chord-gen"
+            href="https://github.com/hirokazutei/chord-composer"
             rel="noopener noreferrer"
             target="_blank"
             style={styles.github}
