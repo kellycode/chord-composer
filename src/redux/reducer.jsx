@@ -72,11 +72,23 @@ export const reducer = (state: State = initialState, action: any): State => {
       switch (action.mode) {
         case INSTRUMENTS.guitar.text: {
           newState.settings.instrument = INSTRUMENTS.guitar;
+          newState.chordNames =
+            keys[state.currentKey][state.currentChord].chordNames;
+          newState.chordNotes =
+            keys[state.currentKey][state.currentChord].chordNotes[
+              INSTRUMENTS.guitar.text
+            ];
           newState.custom = false;
           break;
         }
         case INSTRUMENTS.ukulele.text: {
           newState.settings.instrument = INSTRUMENTS.ukulele;
+          newState.chordNames =
+            keys[state.currentKey][state.currentChord].chordNames;
+          newState.chordNotes =
+            keys[state.currentKey][state.currentChord].chordNotes[
+              INSTRUMENTS.ukulele.text
+            ];
           newState.custom = false;
           break;
         }
