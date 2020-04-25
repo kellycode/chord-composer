@@ -14,7 +14,7 @@ const styles = {
     width: 30,
     marginBottom: 0,
     ...DEFAULT_STYLE.button,
-    borderRadius: "5px 5px 0px 0px"
+    borderRadius: "5px 5px 0px 0px",
   },
   decreaseButton: {
     fontSize: 10,
@@ -23,36 +23,36 @@ const styles = {
     margin: 5,
     marginTop: 0,
     ...DEFAULT_STYLE.button,
-    borderRadius: "0px 0px 5px 5px"
+    borderRadius: "0px 0px 5px 5px",
   },
   border: {
-    ...DEFAULT_STYLE.border
+    ...DEFAULT_STYLE.border,
   },
   buttons: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "no-space-between",
-    alignItems: "centre"
+    alignItems: "centre",
   },
   keyButtons: {
     fontSize: 10,
     height: 20,
     width: 20,
     margin: 3,
-    ...DEFAULT_STYLE.button
+    ...DEFAULT_STYLE.button,
   },
   mainNameInput: {
     color: PALETTE.tealDark,
     fontSize: 30,
     margin: 5,
-    width: 70
+    width: 70,
   },
   row: {
     alignItems: "center",
     display: "flex",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   change: {
     alignItems: "center",
@@ -61,30 +61,30 @@ const styles = {
     flexDirection: "row",
     justifyContent: "center",
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
   },
   text: {
     color: PALETTE.teal,
     fontWeight: "normal",
     fontSize: 15,
-    transform: "scaleY(1.5)",
-    margin: 5
+    transform: "scaleY(1.2)",
+    margin: 5,
   },
   textCurrent: {
     color: PALETTE.tealDark,
     margin: 5,
-    marginRight: 10
+    marginRight: 10,
   },
   title: {
-    ...DEFAULT_STYLE.title
+    ...DEFAULT_STYLE.title,
   },
   view: {
-    margin: "10px 5px 10px 5px"
-  }
+    margin: "10px 5px 10px 5px",
+  },
 };
 
 type StateProps = {
-  customSettings: Settings
+  customSettings: Settings,
 };
 type Props = Dispatch & StateProps;
 
@@ -101,7 +101,7 @@ class NeckSelectors extends Component<Props> {
   onChangeFret = (step: number, event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_FRET,
-      value: step
+      value: step,
     });
   };
 
@@ -113,7 +113,7 @@ class NeckSelectors extends Component<Props> {
   onChangeString = (step: number, event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_STRING,
-      value: step
+      value: step,
     });
   };
 
@@ -125,7 +125,7 @@ class NeckSelectors extends Component<Props> {
   onChangeStartingFret = (step: number, Event: any) => {
     this.props.dispatch({
       type: actionTypes.CHANGE_STARTING_FRET,
-      value: step
+      value: step,
     });
   };
 

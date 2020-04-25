@@ -11,10 +11,10 @@ const styles = {
   addButton: {
     flex: 1,
     height: 30,
-    ...DEFAULT_STYLE.button
+    ...DEFAULT_STYLE.button,
   },
   border: {
-    ...DEFAULT_STYLE.border
+    ...DEFAULT_STYLE.border,
   },
   noteInput: {
     color: PALETTE.tealDark,
@@ -22,7 +22,7 @@ const styles = {
     margin: 5,
     marginLeft: 15,
     marginRight: 15,
-    width: 65
+    width: 65,
   },
   deleteButton: {
     height: 25,
@@ -34,20 +34,20 @@ const styles = {
     margin: 5,
     marginLeft: 15,
     marginRight: 15,
-    width: 65
+    width: 65,
   },
   column: {
     alignItems: "center",
     justifyContent: "space-evenly",
     display: "flex",
     flex: 1,
-    flesDirection: "column"
+    flesDirection: "column",
   },
   row: {
     alignItems: "center",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   textSpace: {
     display: "flex",
@@ -56,26 +56,26 @@ const styles = {
     marginLeft: 15,
     marginRight: 15,
     justifyContent: "center",
-    width: 65
+    width: 65,
   },
   text: {
     alignSelf: "center",
     color: PALETTE.teal,
     fontWeight: "normal",
     fontSize: 15,
-    transform: "scaleY(1.5)"
+    transform: "scaleY(1.2)",
   },
 
   title: {
-    ...DEFAULT_STYLE.title
+    ...DEFAULT_STYLE.title,
   },
   view: {
-    margin: "10px 5px 10px 5px"
-  }
+    margin: "10px 5px 10px 5px",
+  },
 };
 
 type StateProps = {
-  customChordNotes: Array<ChordNote>
+  customChordNotes: Array<ChordNote>,
 };
 type Props = Dispatch & StateProps;
 
@@ -93,7 +93,7 @@ class NoteSelectors extends Component<Props> {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_FRET,
-      value: event.target.value
+      value: event.target.value,
     });
   };
 
@@ -106,7 +106,7 @@ class NoteSelectors extends Component<Props> {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_STRING,
-      value: event.target.value
+      value: event.target.value,
     });
   };
 
@@ -119,7 +119,7 @@ class NoteSelectors extends Component<Props> {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_FINGER,
-      value: event.target.value
+      value: event.target.value,
     });
   };
 
@@ -132,7 +132,7 @@ class NoteSelectors extends Component<Props> {
     this.props.dispatch({
       index,
       type: actionTypes.CHANGE_NOTE_BARRE,
-      value: event.target.value
+      value: event.target.value,
     });
   };
 
@@ -140,10 +140,10 @@ class NoteSelectors extends Component<Props> {
    * On Delete Note
    * @param {number} index - Index of Note Deleted
    */
-  onDeleteNote = index => {
+  onDeleteNote = (index) => {
     this.props.dispatch({
       index,
-      type: actionTypes.DELETE_NOTE
+      type: actionTypes.DELETE_NOTE,
     });
   };
 
@@ -152,7 +152,7 @@ class NoteSelectors extends Component<Props> {
    */
   onAddNote = () => {
     this.props.dispatch({
-      type: actionTypes.ADD_NOTE
+      type: actionTypes.ADD_NOTE,
     });
   };
 
