@@ -10,17 +10,18 @@ const styles = {
     backgroundColor: PALETTE.background,
     display: "flex",
     flexDirection: "column",
-    minHeight: "100%"
+    minHeight: "100%",
   },
   base: {
     backgroundCoor: PALETTE.black,
+    height: "100%",
     minWidth: 700,
     paddingLeft: "auto",
-    paddingRight: "auto"
+    paddingRight: "auto",
   },
   sides: {
-    minWidth: 10
-  }
+    minWidth: 10,
+  },
 };
 
 /**

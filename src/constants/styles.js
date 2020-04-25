@@ -9,7 +9,7 @@ const DEFAULT_STYLE = {
     color: PALETTE.white,
     flex: 1,
     fontWeight: "bold",
-    margin: 5
+    margin: 5,
   },
   border: {
     backgroundColor: PALETTE.white,
@@ -18,16 +18,15 @@ const DEFAULT_STYLE = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
-    padding: 10
+    padding: 10,
   },
   title: {
-    alignSelf: "flex-start",
+    alignSelf: "center",
     color: PALETTE.title,
-    fontWeight: "normal",
+    fontWeight: "bold",
     margin: 5,
     marginBottom: 8,
-    transform: "scaleY(1.2)"
-  }
+  },
 };
 
 export default DEFAULT_STYLE;
